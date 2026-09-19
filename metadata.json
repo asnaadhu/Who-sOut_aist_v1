@@ -1,0 +1,6 @@
+{
+  "name": "Who'sOut",
+  "description": "Track team day-off requests, visualize availability with color-coded status indicators, track leave taken across the team, and oversee approvals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="100%" stop-color="#09090b" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+  </defs>
+  <!-- App Icon Background Squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  
+  <!-- Calendar Base -->
+  <rect x="96" y="128" width="320" height="288" rx="40" fill="#27272a" stroke="#3f3f46" stroke-width="8" />
+  
+  <!-- Calendar Header Strip -->
+  <path d="M96 168 C96 146, 114 128, 136 128 L376 128 C398 128, 416 146, 416 168 L416 208 L96 208 Z" fill="url(#accentGrad)" />
+  
+  <!-- Calendar Ring Binder Pins -->
+  <rect x="160" y="96" width="24" height="64" rx="12" fill="#f4f4f5" />
+  <rect x="328" y="96" width="24" height="64" rx="12" fill="#f4f4f5" />
+
+  <!-- Calendar Grid Dots / Days -->
+  <circle cx="168" cy="264" r="16" fill="#71717a" />
+  <circle cx="256" cy="264" r="16" fill="#71717a" />
+  <circle cx="344" cy="264" r="16" fill="url(#accentGrad)" />
+  
+  <circle cx="168" cy="340" r="16" fill="#71717a" />
+  <circle cx="256" cy="340" r="16" fill="url(#accentGrad)" />
+  <circle cx="344" cy="340" r="16" fill="#71717a" />
+  
+  <!-- Airplane badge in corner -->
+  <g transform="translate(300, 270) scale(0.65)">
+    <circle cx="140" cy="140" r="64" fill="#0284c7" stroke="#ffffff" stroke-width="12" />
+    <path d="M140 108 L148 132 L172 138 L148 144 L140 168 L132 144 L108 138 L132 132 Z" fill="#ffffff" />
+  </g>
+</svg>

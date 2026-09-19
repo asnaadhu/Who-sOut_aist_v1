@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
 import {
   TeamMember,
   TimeOffRequest,
@@ -127,24 +127,33 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     const loadData = async () => {
       setLoading(true);
-      const [membersRes, requestsRes, holidaysRes] = await Promise.all([
-        supabase.from('team_members').select('*'),
-        supabase.from('time_off_requests').select('*'),
-        supabase.from('public_holidays').select('*'),
-      ]);
+      try {
+        const [membersRes, requestsRes, holidaysRes] = await Promise.all([
+          supabase.from('team_members').select('*'),
+          supabase.from('time_off_requests').select('*'),
+          supabase.from('public_holidays').select('*'),
+        ]);
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      if (membersRes.data) {
-        setMembers((membersRes.data as DbTeamMember[]).map(dbMemberToApp));
+        if (membersRes.error) console.error('Failed to load members:', membersRes.error);
+        if (requestsRes.error) console.error('Failed to load requests:', requestsRes.error);
+        if (holidaysRes.error) console.error('Failed to load holidays:', holidaysRes.error);
+
+        if (membersRes.data) {
+          setMembers((membersRes.data as DbTeamMember[]).map(dbMemberToApp));
+        }
+        if (requestsRes.data) {
+          setRequests((requestsRes.data as DbTimeOffRequest[]).map(dbRequestToApp));
+        }
+        if (holidaysRes.data && holidaysRes.data.length > 0) {
+          setHolidays(holidaysRes.data.map(dbHolidayToApp));
+        }
+      } catch (err) {
+        console.error('Failed to load data from Supabase:', err);
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-      if (requestsRes.data) {
-        setRequests((requestsRes.data as DbTimeOffRequest[]).map(dbRequestToApp));
-      }
-      if (holidaysRes.data && holidaysRes.data.length > 0) {
-        setHolidays(holidaysRes.data.map(dbHolidayToApp));
-      }
-      setLoading(false);
     };
 
     loadData();

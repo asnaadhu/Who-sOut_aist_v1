@@ -521,6 +521,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       jobTitle: data.jobTitle.trim() || 'Team Member',
       joinedDate: data.joinedDate || new Date().toISOString().split('T')[0],
       allowances: data.allowances || { AL: 25, RR: 14, SL: 14, DO: 52, PH: 10, FRL: 5 },
+      pinChanged: false,
     };
 
     setMembers((prev) => [...prev, newMember]);
@@ -529,6 +530,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       id,
       tm_id: assignedTmId,
       pin: cleanPin,
+      pin_changed: false,
       name: newMember.name,
       email: cleanEmail,
       avatar_color: pickedAvatar,
@@ -548,11 +550,20 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   const updateMember = (memberId: string, data: Partial<TeamMember>) => {
+    const pinChangedByAdmin =
+      data.pin !== undefined && /^\d{6}$/.test(data.pin.trim()) &&
+      data.pin.trim() !== members.find((m) => m.id === memberId)?.pin;
+
     setMembers((prev) =>
       prev.map((m) => {
         if (m.id !== memberId) return m;
         const updatedPin = data.pin && /^\d{6}$/.test(data.pin.trim()) ? data.pin.trim() : m.pin;
-        return { ...m, ...data, pin: updatedPin };
+        return {
+          ...m,
+          ...data,
+          pin: updatedPin,
+          pinChanged: pinChangedByAdmin ? false : m.pinChanged,
+        };
       })
     );
     if (data.avatarColor) {
@@ -563,7 +574,10 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         .eq('member_id', memberId)
         .then(({ error }) => { if (error) console.error('Failed to sync avatar on requests:', error); });
     }
-    const dbData = appMemberToDb(data as Partial<TeamMember> & { name: string; department: string; jobTitle: string });
+    const dbData = appMemberToDb({
+      ...(data as Partial<TeamMember> & { name: string; department: string; jobTitle: string }),
+      pinChanged: pinChangedByAdmin ? false : undefined,
+    });
     supabase.from('team_members').update(dbData).eq('id', memberId)
       .then(({ error }) => { if (error) console.error('Failed to update member:', error); });
   };

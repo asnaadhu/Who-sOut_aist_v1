@@ -102,6 +102,7 @@ export const appMemberToDb = (m: Partial<TeamMember> & { name: string; departmen
   };
   if (m.tmId !== undefined) obj.tm_id = m.tmId;
   if (m.pin !== undefined) obj.pin = m.pin;
+  if (m.pinChanged !== undefined) obj.pin_changed = m.pinChanged;
   if (m.email !== undefined) obj.email = m.email;
   if (m.avatarColor !== undefined) obj.avatar_color = m.avatarColor;
   if (m.avatarInitials !== undefined) obj.avatar_initials = m.avatarInitials;

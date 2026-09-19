@@ -54,9 +54,6 @@ export const LoginPage: React.FC = () => {
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
             Who’sOut
           </h1>
-          <p className="text-xs sm:text-sm text-neutral-500">
-            Avani+ Fares Maldives Resort
-          </p>
         </div>
 
         {/* Login Card */}

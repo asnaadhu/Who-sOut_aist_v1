@@ -95,9 +95,6 @@ export const LoginPage: React.FC = () => {
                 <label className="block text-xs font-semibold text-neutral-700">
                   6-Digit Security PIN
                 </label>
-                <span className="text-[10px] text-neutral-400">
-                  {pin.length}/6 digits
-                </span>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">

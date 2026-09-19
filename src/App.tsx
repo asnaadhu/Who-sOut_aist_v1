@@ -11,10 +11,11 @@ import { TimelineView } from './components/Calendar/TimelineView';
 import { AdminDashboard } from './components/Admin/AdminDashboard';
 import { RequestModal } from './components/Requests/RequestModal';
 import { LoginPage } from './components/Auth/LoginPage';
+import { ChangePinPage } from './components/Auth/ChangePinPage';
 import { MobileBottomNav } from './components/Navigation/MobileBottomNav';
 
 const AppContent: React.FC = () => {
-  const { currentView, isAuthenticated, loading } = useCalendar();
+  const { currentView, isAuthenticated, mustChangePin, loading } = useCalendar();
 
   if (loading) {
     return (
@@ -29,6 +30,10 @@ const AppContent: React.FC = () => {
 
   if (!isAuthenticated) {
     return <LoginPage />;
+  }
+
+  if (mustChangePin) {
+    return <ChangePinPage />;
   }
 
   return (

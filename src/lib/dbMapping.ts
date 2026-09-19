@@ -13,6 +13,7 @@ export interface DbTeamMember {
   job_title: string | null;
   joined_date: string | null;
   allowances: Record<string, number> | null;
+  pin_changed: boolean | null;
 }
 
 export interface DbTimeOffRequest {
@@ -73,6 +74,7 @@ export const dbMemberToApp = (m: DbTeamMember): TeamMember => {
     id: m.id,
     tmId: m.tm_id || undefined,
     pin: m.pin || '123456',
+    pinChanged: m.pin_changed ?? false,
     name: m.name,
     email: m.email || '',
     avatarColor: m.avatar_color || 'bg-neutral-800 text-white',

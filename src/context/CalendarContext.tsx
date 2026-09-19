@@ -88,7 +88,9 @@ interface CalendarContextType {
   pendingRequestsCount: number;
   resetToDefaults: () => void;
   isAuthenticated: boolean;
+  mustChangePin: boolean;
   login: (tmId: string, pin: string) => { success: boolean; error?: string };
+  changePin: (newPin: string) => { success: boolean; error?: string };
   logout: () => void;
   loading: boolean;
 }
@@ -120,6 +122,8 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       return false;
     }
   });
+
+  const [mustChangePin, setMustChangePin] = useState<boolean>(false);
 
   // ─── Load from Supabase on mount ───────────────────────────
   useEffect(() => {
@@ -184,6 +188,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     setActiveMemberIdState(matchedMember.id);
     setIsAuthenticated(true);
+    setMustChangePin(!matchedMember.pinChanged);
     try {
       localStorage.setItem(STORAGE_KEY_ACTIVE_USER, matchedMember.id);
       localStorage.setItem(STORAGE_KEY_AUTH, 'true');
@@ -193,8 +198,24 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     return { success: true };
   };
 
+  const changePin = (newPin: string): { success: boolean; error?: string } => {
+    if (!/^\d{6}$/.test(newPin)) return { success: false, error: 'PIN must be exactly 6 digits (numbers only).' };
+
+    const currentPin = activeMember.pin || '123456';
+    if (newPin === currentPin) return { success: false, error: 'Your new PIN must be different from the current one.' };
+
+    setMembers((prev) => prev.map((m) => m.id === activeMember.id ? { ...m, pin: newPin, pinChanged: true } : m));
+    setMustChangePin(false);
+
+    supabase.from('team_members').update({ pin: newPin, pin_changed: true }).eq('id', activeMember.id)
+      .then(({ error }) => { if (error) console.error('Failed to update PIN:', error); });
+
+    return { success: true };
+  };
+
   const logout = () => {
     setIsAuthenticated(false);
+    setMustChangePin(false);
     try {
       localStorage.setItem(STORAGE_KEY_AUTH, 'false');
     } catch (e) {
@@ -622,7 +643,9 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         pendingRequestsCount,
         resetToDefaults,
         isAuthenticated,
+        mustChangePin,
         login,
+        changePin,
         logout,
         loading,
       }}

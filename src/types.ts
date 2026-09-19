@@ -21,6 +21,7 @@ export interface TeamMember {
   id: string;
   tmId?: string; // Team Member ID (e.g. TM-001)
   pin?: string;  // 6-digit authentication PIN (e.g. '123456')
+  pinChanged?: boolean; // false until the user changes their PIN on first login
   name: string;
   email: string;
   avatarColor: string;

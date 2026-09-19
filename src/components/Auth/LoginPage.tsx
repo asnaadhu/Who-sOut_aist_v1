@@ -46,7 +46,7 @@ export const LoginPage: React.FC = () => {
           <img
             src="/Logo_BW.png"
             alt="Avani+ Fares Maldives Resort"
-            className="w-26 sm:w-30 h-auto object-contain"
+            className="w-52 sm:w-60 h-auto object-contain"
           />
         </div>
 

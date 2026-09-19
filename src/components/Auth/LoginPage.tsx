@@ -50,7 +50,7 @@ export const LoginPage: React.FC = () => {
             Who’sOut
           </h1>
           <p className="text-xs sm:text-sm text-neutral-500">
-            Sign in with your Team Member ID &amp; 6-digit PIN
+            Avani+ Fares Maldives Resort
           </p>
         </div>
 

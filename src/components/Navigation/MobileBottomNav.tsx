@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useCalendar } from '../../context/CalendarContext';
 import { MobileProfileSheet } from './MobileProfileSheet';
+import { MobileLeaveTakenSheet } from './MobileLeaveTakenSheet';
 
 export const MobileBottomNav: React.FC = () => {
   const {
@@ -18,6 +19,7 @@ export const MobileBottomNav: React.FC = () => {
   } = useCalendar();
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isLeaveTakenOpen, setIsLeaveTakenOpen] = useState(false);
   const isAdmin = activeMember.role === 'admin';
 
   return (
@@ -107,8 +109,10 @@ export const MobileBottomNav: React.FC = () => {
           ) : (
             <button
               type="button"
-              onClick={() => setIsProfileOpen(true)}
-              className="flex flex-col items-center justify-center py-1 px-3 min-w-[56px] min-h-[44px] rounded-xl transition-all text-neutral-500 hover:text-neutral-800 cursor-pointer"
+              onClick={() => setIsLeaveTakenOpen(true)}
+              className={`flex flex-col items-center justify-center py-1 px-3 min-w-[56px] min-h-[44px] rounded-xl transition-all cursor-pointer ${
+                isLeaveTakenOpen ? 'text-neutral-950 font-bold' : 'text-neutral-500 hover:text-neutral-800'
+              }`}
             >
               <div className="w-10 h-7 rounded-full flex items-center justify-center">
                 <User className="w-4 h-4" />
@@ -141,6 +145,12 @@ export const MobileBottomNav: React.FC = () => {
       <MobileProfileSheet
         isOpen={isProfileOpen}
         onClose={() => setIsProfileOpen(false)}
+      />
+
+      {/* Mobile Leave Taken Bottom Sheet */}
+      <MobileLeaveTakenSheet
+        isOpen={isLeaveTakenOpen}
+        onClose={() => setIsLeaveTakenOpen(false)}
       />
     </>
   );

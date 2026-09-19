@@ -8,6 +8,10 @@ import {
   AlertCircle,
   ArrowRight,
   CheckCircle2,
+  Phone,
+  MessageCircle,
+  Mail,
+  LifeBuoy,
 } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
@@ -171,30 +175,57 @@ export const LoginPage: React.FC = () => {
         </div>
 
         {/* Account support contact */}
-        <div className="bg-white/60 border border-neutral-200 rounded-2xl p-5 text-center space-y-3">
-          <p className="text-xs font-semibold text-neutral-700">
-            Need account access or password reset?
-          </p>
-          <div className="space-y-1.5 text-xs text-neutral-600">
-            <p className="font-medium text-neutral-800">Ahmed Asnad</p>
-            <p>
-              Call:{' '}
-              <a href="tel:+9607292184" className="text-neutral-700 hover:text-neutral-900 underline-offset-2 hover:underline transition-colors">
-                +960 729 2184
-              </a>
+        <div className="bg-white border border-neutral-200 rounded-2xl shadow-xs overflow-hidden">
+          <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-neutral-100 bg-neutral-50/80">
+            <LifeBuoy className="w-4 h-4 text-neutral-500 shrink-0" />
+            <p className="text-xs font-semibold text-neutral-700">
+              Need account access or password reset?
             </p>
-            <p>
-              WhatsApp:{' '}
-              <a href="https://wa.me/9607292184" target="_blank" rel="noopener noreferrer" className="text-neutral-700 hover:text-neutral-900 underline-offset-2 hover:underline transition-colors">
-                +960 729 2184
-              </a>
+          </div>
+          <div className="px-5 py-4 space-y-3">
+            <p className="text-sm font-semibold text-neutral-900 text-center">
+              Ahmed Asnad
             </p>
-            <p>
-              Email:{' '}
-              <a href="mailto:aasnad@avanihotels.com" className="text-neutral-700 hover:text-neutral-900 underline-offset-2 hover:underline transition-colors">
-                aasnad@avanihotels.com
+            <div className="grid grid-cols-1 gap-2">
+              <a
+                href="tel:+9607292184"
+                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 hover:border-neutral-300 hover:bg-white transition-all group"
+              >
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-900 text-white shrink-0">
+                  <Phone className="w-3.5 h-3.5" />
+                </span>
+                <span className="flex flex-col min-w-0">
+                  <span className="text-[10px] uppercase tracking-wide text-neutral-400 font-semibold">Call</span>
+                  <span className="text-xs text-neutral-800 font-medium group-hover:text-neutral-900 transition-colors">+960 729 2184</span>
+                </span>
               </a>
-            </p>
+              <a
+                href="https://wa.me/9607292184"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 hover:border-neutral-300 hover:bg-white transition-all group"
+              >
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-900 text-white shrink-0">
+                  <MessageCircle className="w-3.5 h-3.5" />
+                </span>
+                <span className="flex flex-col min-w-0">
+                  <span className="text-[10px] uppercase tracking-wide text-neutral-400 font-semibold">WhatsApp</span>
+                  <span className="text-xs text-neutral-800 font-medium group-hover:text-neutral-900 transition-colors">+960 729 2184</span>
+                </span>
+              </a>
+              <a
+                href="mailto:aasnad@avanihotels.com"
+                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 hover:border-neutral-300 hover:bg-white transition-all group"
+              >
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-900 text-white shrink-0">
+                  <Mail className="w-3.5 h-3.5" />
+                </span>
+                <span className="flex flex-col min-w-0">
+                  <span className="text-[10px] uppercase tracking-wide text-neutral-400 font-semibold">Email</span>
+                  <span className="text-xs text-neutral-800 font-medium group-hover:text-neutral-900 transition-colors truncate">aasnad@avanihotels.com</span>
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

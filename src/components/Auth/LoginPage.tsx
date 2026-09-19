@@ -68,7 +68,7 @@ export const LoginPage: React.FC = () => {
             <div>
               <label className="block text-xs font-semibold text-neutral-700 mb-1.5 flex items-center justify-between">
                 <span>Team Member ID</span>
-                <span className="text-[10px] text-neutral-400 font-normal">e.g. TM-001</span>
+
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
@@ -83,7 +83,7 @@ export const LoginPage: React.FC = () => {
                     setTmId(e.target.value.toUpperCase());
                     if (error) setError(null);
                   }}
-                  placeholder="TM-001"
+                  placeholder="30034"
                   className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono focus:bg-white focus:outline-hidden focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors"
                 />
               </div>

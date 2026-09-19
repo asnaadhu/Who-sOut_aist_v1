@@ -7,7 +7,6 @@ import {
   EyeOff,
   AlertCircle,
   ArrowRight,
-  Calendar as CalendarIcon,
   CheckCircle2,
 } from 'lucide-react';
 
@@ -52,7 +51,6 @@ export const LoginPage: React.FC = () => {
 
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <CalendarIcon className="w-6 h-6 text-emerald-400" />
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
             Who’sOut
           </h1>

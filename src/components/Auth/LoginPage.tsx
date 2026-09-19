@@ -52,9 +52,7 @@ export const LoginPage: React.FC = () => {
 
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-neutral-900 text-white shadow-xs mb-1">
-            <CalendarIcon className="w-6 h-6 text-emerald-400" />
-          </div>
+          <CalendarIcon className="w-6 h-6 text-emerald-400" />
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
             Who’sOut
           </h1>

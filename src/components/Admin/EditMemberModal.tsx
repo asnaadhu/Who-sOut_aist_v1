@@ -20,6 +20,7 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
 
   const [name, setName] = useState('');
   const [tmId, setTmId] = useState('');
+  const [email, setEmail] = useState('');
   const [department, setDepartment] = useState('');
   const [position, setPosition] = useState('');
   const [pin, setPin] = useState('123456');
@@ -30,6 +31,7 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
     if (member) {
       setName(member.name);
       setTmId(member.tmId || member.id.replace('mem-', 'TM-'));
+      setEmail(member.email || '');
       setDepartment(member.department);
       setPosition(member.jobTitle);
       setPin(member.pin || '123456');
@@ -51,6 +53,7 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
     updateMember(member.id, {
       name: name.trim(),
       tmId: tmId.trim().toUpperCase() || member.tmId || 'TM-001',
+      email: email.trim(),
       department: department.trim() || 'General',
       jobTitle: position.trim() || 'Team Member',
       pin: pin.length === 6 ? pin : member.pin || '123456',
@@ -122,6 +125,21 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
               className="w-full text-xs border border-neutral-300 rounded-lg p-2.5 bg-neutral-50 focus:bg-white text-neutral-900 font-semibold uppercase tracking-wider"
             />
             <p className="text-[11px] text-neutral-400 mt-1">Unique team member identification code</p>
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-xs font-semibold text-neutral-700 mb-1">
+              Email Address
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="e.g. ahmed.asnad@avanihotels.com"
+              className="w-full text-xs border border-neutral-300 rounded-lg p-2.5 bg-neutral-50 focus:bg-white text-neutral-900 font-medium"
+            />
+            <p className="text-[11px] text-neutral-400 mt-1">Used for account-related notifications</p>
           </div>
 
           {/* Department */}

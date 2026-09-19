@@ -5,7 +5,11 @@ import {
   LogOut,
   ShieldCheck,
   Plus,
+  Mail,
+  Briefcase,
+  IdCard,
 } from 'lucide-react';
+import { LeaveType } from '../../types';
 
 interface MobileProfileSheetProps {
   isOpen: boolean;
@@ -18,11 +22,22 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
     logout,
     setIsRequestModalOpen,
     setCurrentView,
+    getMemberUsedDays,
   } = useCalendar();
 
   if (!isOpen) return null;
 
   const isAdmin = activeMember.role === 'admin';
+  const used = getMemberUsedDays(activeMember.id);
+
+  const leaveItems: { type: LeaveType; label: string; bg: string; text: string; border: string }[] = [
+    { type: 'AL', label: 'Annual Leave', bg: 'bg-emerald-50', text: 'text-emerald-800', border: 'border-emerald-200' },
+    { type: 'RR', label: 'Rest & Relax', bg: 'bg-sky-50', text: 'text-sky-800', border: 'border-sky-200' },
+    { type: 'SL', label: 'Sick Leave', bg: 'bg-rose-50', text: 'text-rose-800', border: 'border-rose-200' },
+    { type: 'DO', label: 'Day Off', bg: 'bg-neutral-100', text: 'text-neutral-800', border: 'border-neutral-200' },
+    { type: 'PH', label: 'Public Hol.', bg: 'bg-purple-50', text: 'text-purple-800', border: 'border-purple-200' },
+    { type: 'FRL', label: 'Family/Rel.', bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-200' },
+  ];
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-neutral-900/60 backdrop-blur-xs animate-in fade-in duration-200 md:hidden">
@@ -83,6 +98,42 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
             </div>
           </div>
 
+          {/* Leave Taken Breakdown */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-neutral-900 uppercase tracking-wider">
+                Leave Taken &bull; 2026
+              </span>
+              <span className="text-[11px] text-neutral-500">Days Logged</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {leaveItems.map((item) => {
+                const usedCount = used[item.type] ?? 0;
+                return (
+                  <div
+                    key={item.type}
+                    className={`p-2.5 rounded-xl border ${item.bg} ${item.border} flex items-center justify-between`}
+                  >
+                    <div>
+                      <span className={`text-[11px] font-bold block ${item.text}`}>
+                        {item.type}
+                      </span>
+                      <span className="text-[10px] text-neutral-600 truncate block">
+                        {item.label}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-sm font-bold text-neutral-900">{usedCount}</span>
+                      <span className="text-[10px] text-neutral-500 block">
+                        {usedCount === 1 ? 'day' : 'days'}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Quick Shortcuts */}
           <div className="space-y-2 pt-1">
             <button
@@ -111,7 +162,8 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
 
           </div>
 
-          {/* Sign Out Button */}
+          {/* Sign Out Button (admins only) */}
+          {isAdmin && (
           <div className="pt-2 border-t border-neutral-100">
             <button
               onClick={() => {
@@ -124,6 +176,7 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
               <span>Sign Out</span>
             </button>
           </div>
+          )}
         </div>
       </div>
     </div>

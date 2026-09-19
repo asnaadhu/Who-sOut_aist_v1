@@ -189,9 +189,7 @@ export const Header: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="pt-2 border-t border-neutral-100 flex justify-end text-[11px] text-neutral-400">
-                    <span className="font-mono text-[10px]">PIN: {activeMember.pin || '123456'}</span>
-                  </div>
+                  <div className="pt-2 border-t border-neutral-100" />
                 </div>
               )}
             </div>

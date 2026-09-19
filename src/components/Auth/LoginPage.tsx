@@ -169,6 +169,34 @@ export const LoginPage: React.FC = () => {
           <CheckCircle2 className="w-3.5 h-3.5 text-neutral-400" />
           <span>Role-based access &bull; Administrators manage user PINs in Settings</span>
         </div>
+
+        {/* Account support contact */}
+        <div className="bg-white/60 border border-neutral-200 rounded-2xl p-5 text-center space-y-3">
+          <p className="text-xs font-semibold text-neutral-700">
+            Need account access or password reset?
+          </p>
+          <div className="space-y-1.5 text-xs text-neutral-600">
+            <p className="font-medium text-neutral-800">Ahmed Asnad</p>
+            <p>
+              Call:{' '}
+              <a href="tel:+9607292184" className="text-neutral-700 hover:text-neutral-900 underline-offset-2 hover:underline transition-colors">
+                +960 729 2184
+              </a>
+            </p>
+            <p>
+              WhatsApp:{' '}
+              <a href="https://wa.me/9607292184" target="_blank" rel="noopener noreferrer" className="text-neutral-700 hover:text-neutral-900 underline-offset-2 hover:underline transition-colors">
+                +960 729 2184
+              </a>
+            </p>
+            <p>
+              Email:{' '}
+              <a href="mailto:aasnad@avanihotels.com" className="text-neutral-700 hover:text-neutral-900 underline-offset-2 hover:underline transition-colors">
+                aasnad@avanihotels.com
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

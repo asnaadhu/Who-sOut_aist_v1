@@ -164,6 +164,41 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     return () => { cancelled = true; };
   }, []);
 
+  // ─── Realtime subscriptions ───────────────────────────────
+  // Whenever any row in our tables changes (insert/update/delete), re-fetch
+  // that table so every connected user sees the change instantly.
+  useEffect(() => {
+    const channel = supabase
+      .channel('team-calendar-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'team_members' },
+        () => {
+          supabase.from('team_members').select('*')
+            .then(({ data, error }) => {
+              if (error) { console.error('Realtime: failed to reload members:', error); return; }
+              if (data) setMembers((data as DbTeamMember[]).map(dbMemberToApp));
+            });
+        })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'time_off_requests' },
+        () => {
+          supabase.from('time_off_requests').select('*')
+            .then(({ data, error }) => {
+              if (error) { console.error('Realtime: failed to reload requests:', error); return; }
+              if (data) setRequests((data as DbTimeOffRequest[]).map(dbRequestToApp));
+            });
+        })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'public_holidays' },
+        () => {
+          supabase.from('public_holidays').select('*')
+            .then(({ data, error }) => {
+              if (error) { console.error('Realtime: failed to reload holidays:', error); return; }
+              if (data && data.length > 0) setHolidays(data.map(dbHolidayToApp));
+            });
+        })
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, []);
+
   // ─── Auth ──────────────────────────────────────────────────
   const login = (tmIdInput: string, pinInput: string): { success: boolean; error?: string } => {
     const cleanTmId = tmIdInput.trim().toUpperCase();

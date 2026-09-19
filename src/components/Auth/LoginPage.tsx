@@ -8,7 +8,6 @@ import {
   AlertCircle,
   ArrowRight,
   CheckCircle2,
-  Phone,
   MessageCircle,
   Mail,
   LifeBuoy,
@@ -187,18 +186,6 @@ export const LoginPage: React.FC = () => {
               Ahmed Asnad
             </p>
             <div className="grid grid-cols-1 gap-2">
-              <a
-                href="tel:+9607292184"
-                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 hover:border-neutral-300 hover:bg-white transition-all group"
-              >
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-900 text-white shrink-0">
-                  <Phone className="w-3.5 h-3.5" />
-                </span>
-                <span className="flex flex-col min-w-0">
-                  <span className="text-[10px] uppercase tracking-wide text-neutral-400 font-semibold">Call</span>
-                  <span className="text-xs text-neutral-800 font-medium group-hover:text-neutral-900 transition-colors">+960 729 2184</span>
-                </span>
-              </a>
               <a
                 href="https://wa.me/9607292184"
                 target="_blank"

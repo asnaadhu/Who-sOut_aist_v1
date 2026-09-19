@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useCalendar } from '../../context/CalendarContext';
 import { Department, TeamMember, UserRole } from '../../types';
 import { X, UserCheck, Shield, User } from 'lucide-react';
+import { AvatarPicker } from './AvatarPicker';
+import { DEFAULT_AVATAR } from '../../data/avatars';
 
 interface EditMemberModalProps {
   isOpen: boolean;
@@ -22,6 +24,7 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
   const [position, setPosition] = useState('');
   const [pin, setPin] = useState('123456');
   const [role, setRole] = useState<UserRole>('requestor');
+  const [avatarColor, setAvatarColor] = useState<string>(DEFAULT_AVATAR);
 
   useEffect(() => {
     if (member) {
@@ -31,6 +34,7 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
       setPosition(member.jobTitle);
       setPin(member.pin || '123456');
       setRole(member.role === 'admin' ? 'admin' : 'requestor');
+      setAvatarColor(member.avatarColor || DEFAULT_AVATAR);
     }
   }, [member]);
 
@@ -51,6 +55,7 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
       jobTitle: position.trim() || 'Team Member',
       pin: pin.length === 6 ? pin : member.pin || '123456',
       role,
+      avatarColor,
       allowances: member.allowances,
     });
 
@@ -99,6 +104,9 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
               className="w-full text-xs border border-neutral-300 rounded-lg p-2.5 bg-neutral-50 focus:bg-white text-neutral-900 font-medium"
             />
           </div>
+
+          {/* Avatar */}
+          <AvatarPicker value={avatarColor} onChange={setAvatarColor} name={name} />
 
           {/* TM ID */}
           <div>

@@ -660,6 +660,13 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         };
       })
     );
+    if (data.avatarColor) {
+      setRequests((prev) =>
+        prev.map((r) =>
+          r.memberId === memberId ? { ...r, memberAvatarColor: data.avatarColor! } : r
+        )
+      );
+    }
   };
 
   const deleteMember = (memberId: string) => {

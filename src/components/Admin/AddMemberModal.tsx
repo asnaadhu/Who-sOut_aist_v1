@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useCalendar } from '../../context/CalendarContext';
 import { Department, UserRole } from '../../types';
 import { X, UserPlus, User, Shield } from 'lucide-react';
+import { AvatarPicker } from './AvatarPicker';
+import { DEFAULT_AVATAR } from '../../data/avatars';
 
 interface AddMemberModalProps {
   isOpen: boolean;
@@ -17,6 +19,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
   const [position, setPosition] = useState('');
   const [pin, setPin] = useState('123456');
   const [role, setRole] = useState<UserRole>('requestor');
+  const [avatarColor, setAvatarColor] = useState<string>(DEFAULT_AVATAR);
 
   useEffect(() => {
     if (isOpen) {
@@ -26,6 +29,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
       setPosition('');
       setPin('123456');
       setRole('requestor');
+      setAvatarColor(DEFAULT_AVATAR);
     }
   }, [isOpen, members.length]);
 
@@ -46,6 +50,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
       jobTitle: position.trim() || 'Team Member',
       pin: pin.length === 6 ? pin : '123456',
       role,
+      avatarColor,
     });
 
     onClose();
@@ -92,6 +97,9 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
               className="w-full text-xs border border-neutral-300 rounded-lg p-2.5 bg-neutral-50 focus:bg-white text-neutral-900 font-medium"
             />
           </div>
+
+          {/* Avatar */}
+          <AvatarPicker value={avatarColor} onChange={setAvatarColor} name={name} />
 
           {/* TM ID */}
           <div>

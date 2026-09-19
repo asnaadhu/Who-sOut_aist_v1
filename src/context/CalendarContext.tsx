@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode, useCallback } from 'react';
 import {
   TeamMember,
   TimeOffRequest,
@@ -11,11 +11,19 @@ import {
   UserRole,
 } from '../types';
 import {
-  INITIAL_MEMBERS,
-  INITIAL_REQUESTS,
   INITIAL_HOLIDAYS,
 } from '../data/seedData';
 import { formatISODate, doesRequestCoverDate } from '../utils/dateUtils';
+import { supabase } from '../lib/supabase';
+import {
+  DbTeamMember,
+  DbTimeOffRequest,
+  dbMemberToApp,
+  appMemberToDb,
+  dbRequestToApp,
+  dbHolidayToApp,
+} from '../lib/dbMapping';
+import { getInitials } from '../data/avatars';
 
 interface CalendarContextType {
   members: TeamMember[];
@@ -38,7 +46,7 @@ interface CalendarContextType {
   goToPrevious: () => void;
   goToNext: () => void;
   currentYear: number;
-  currentMonth: number; // 0-indexed
+  currentMonth: number;
   goToPreviousMonth: () => void;
   goToNextMonth: () => void;
   goToToday: () => void;
@@ -82,185 +90,75 @@ interface CalendarContextType {
   isAuthenticated: boolean;
   login: (tmId: string, pin: string) => { success: boolean; error?: string };
   logout: () => void;
+  loading: boolean;
 }
 
 const CalendarContext = createContext<CalendarContextType | undefined>(undefined);
 
-const STORAGE_KEY_MEMBERS = 'team_calendar_members_v4';
-const STORAGE_KEY_REQUESTS = 'team_calendar_requests_v4';
 const STORAGE_KEY_ACTIVE_USER = 'team_calendar_active_user_v4';
 const STORAGE_KEY_AUTH = 'team_calendar_auth_v4';
 
-// Legacy keys for automatic migration cleanup
-const LEGACY_STORAGE_KEY_MEMBERS = 'team_calendar_members_v2';
-const LEGACY_STORAGE_KEY_REQUESTS = 'team_calendar_requests_v2';
-
-const normalizeLeaveType = (type: any): LeaveType => {
-  const upper = String(type || '').toUpperCase();
-  if (upper === 'DO' || upper === 'PH' || upper === 'AL' || upper === 'RR' || upper === 'SL' || upper === 'FRL') {
-    return upper as LeaveType;
-  }
-  if (type === 'vacation') return 'AL';
-  if (type === 'sick') return 'SL';
-  if (type === 'remote') return 'DO';
-  if (type === 'personal') return 'FRL';
-  if (type === 'holiday') return 'PH';
-  return 'AL';
-};
-
-const DUMMY_MEMBER_IDS = new Set([
-  'mem-1',
-  'mem-2',
-  'mem-3',
-  'mem-4',
-  'mem-5',
-  'mem-6',
-  'mem-7',
-  'mem-8',
-]);
-
-const DUMMY_MEMBER_NAMES = new Set([
-  'marcus vance',
-  'sarah chen',
-  'liam johnson',
-  'carlos gomez',
-  'aisha patel',
-  'elena rostova',
-  'maya lin',
-  'jordan taylor',
-]);
-
 export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Members state: only Asnad and any users created by admin
-  const [members, setMembers] = useState<TeamMember[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_MEMBERS);
-      if (!saved) return INITIAL_MEMBERS;
-      const parsed = JSON.parse(saved);
-      if (!Array.isArray(parsed) || parsed.length === 0) return INITIAL_MEMBERS;
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [requests, setRequests] = useState<TimeOffRequest[]>([]);
+  const [holidays, setHolidays] = useState<PublicHoliday[]>(INITIAL_HOLIDAYS);
+  const [loading, setLoading] = useState(true);
 
-      const filtered = parsed.filter(
-        (m: any) =>
-          !DUMMY_MEMBER_IDS.has(m.id) &&
-          !DUMMY_MEMBER_NAMES.has(String(m.name || '').toLowerCase().trim())
-      );
-
-      if (filtered.length === 0) return INITIAL_MEMBERS;
-
-      const loaded: TeamMember[] = filtered.map((m: any, idx: number) => {
-        const rawAllow = m.allowances || {};
-        const isAsnad =
-          m.id === 'mem-asnad' ||
-          m.email?.toLowerCase() === 'asnaadhu@gmail.com' ||
-          m.name === 'Asnad' ||
-          m.name === 'Ahmed Asnad';
-
-        const assignedTmId =
-          m.tmId && String(m.tmId).trim()
-            ? String(m.tmId).trim().toUpperCase()
-            : isAsnad
-            ? 'TM-001'
-            : `TM-${String(idx + 1).padStart(3, '0')}`;
-
-        const assignedPin =
-          m.pin && /^\d{6}$/.test(String(m.pin).trim())
-            ? String(m.pin).trim()
-            : '123456';
-
-        return {
-          ...m,
-          name: isAsnad ? 'Asnad' : m.name,
-          tmId: assignedTmId,
-          pin: assignedPin,
-          role: (isAsnad ? 'admin' : m.role === 'admin' ? 'admin' : 'requestor') as UserRole,
-          allowances: {
-            AL: Number(rawAllow.AL ?? rawAllow.vacation ?? 20),
-            RR: Number(rawAllow.RR ?? 14),
-            SL: Number(rawAllow.SL ?? rawAllow.sick ?? 10),
-            DO: Number(rawAllow.DO ?? 12),
-            PH: Number(rawAllow.PH ?? 10),
-            FRL: Number(rawAllow.FRL ?? rawAllow.personal ?? 5),
-          },
-        };
-      });
-
-      // Ensure Asnad is always present as an admin user
-      const hasAsnad = loaded.some(
-        (m) =>
-          m.id === 'mem-asnad' ||
-          m.email.toLowerCase() === 'asnaadhu@gmail.com' ||
-          m.name === 'Asnad' ||
-          m.name === 'Ahmed Asnad'
-      );
-      if (!hasAsnad) {
-        return [INITIAL_MEMBERS[0], ...loaded];
-      }
-      return loaded;
-    } catch {
-      return INITIAL_MEMBERS;
-    }
-  });
-
-  // Requests state
-  const [requests, setRequests] = useState<TimeOffRequest[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_REQUESTS);
-      if (!saved) return INITIAL_REQUESTS;
-      const parsed = JSON.parse(saved);
-      if (!Array.isArray(parsed) || parsed.length === 0) return INITIAL_REQUESTS;
-
-      const filtered = parsed.filter((r: any) => !DUMMY_MEMBER_IDS.has(r.memberId));
-      if (filtered.length === 0) return INITIAL_REQUESTS;
-
-      return filtered.map((r: any) => ({
-        ...r,
-        leaveType: normalizeLeaveType(r.leaveType),
-        isOutOfIsland: Boolean(r.isOutOfIsland),
-        status: r.status === 'pending' ? ('approved' as const) : r.status,
-      }));
-    } catch {
-      return INITIAL_REQUESTS;
-    }
-  });
-
-  // Active Member: default to Asnad (admin)
   const [activeMemberId, setActiveMemberIdState] = useState<string>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY_ACTIVE_USER);
-      if (saved && !DUMMY_MEMBER_IDS.has(saved)) {
-        return saved;
-      }
-      return 'mem-asnad';
+      return saved || 'mem-asnad';
     } catch {
       return 'mem-asnad';
     }
   });
 
-  // Authentication state (TM ID + 6-digit PIN)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     try {
-      const savedAuth = localStorage.getItem(STORAGE_KEY_AUTH);
-      return savedAuth === 'true';
+      return localStorage.getItem(STORAGE_KEY_AUTH) === 'true';
     } catch {
       return false;
     }
   });
 
+  // ─── Load from Supabase on mount ───────────────────────────
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadData = async () => {
+      setLoading(true);
+      const [membersRes, requestsRes, holidaysRes] = await Promise.all([
+        supabase.from('team_members').select('*'),
+        supabase.from('time_off_requests').select('*'),
+        supabase.from('public_holidays').select('*'),
+      ]);
+
+      if (cancelled) return;
+
+      if (membersRes.data) {
+        setMembers((membersRes.data as DbTeamMember[]).map(dbMemberToApp));
+      }
+      if (requestsRes.data) {
+        setRequests((requestsRes.data as DbTimeOffRequest[]).map(dbRequestToApp));
+      }
+      if (holidaysRes.data && holidaysRes.data.length > 0) {
+        setHolidays(holidaysRes.data.map(dbHolidayToApp));
+      }
+      setLoading(false);
+    };
+
+    loadData();
+    return () => { cancelled = true; };
+  }, []);
+
+  // ─── Auth ──────────────────────────────────────────────────
   const login = (tmIdInput: string, pinInput: string): { success: boolean; error?: string } => {
     const cleanTmId = tmIdInput.trim().toUpperCase();
     const cleanPin = pinInput.trim();
 
-    if (!cleanTmId) {
-      return { success: false, error: 'Please enter your TM ID (e.g. TM-001).' };
-    }
-
-    if (!cleanPin) {
-      return { success: false, error: 'Please enter your 6-digit PIN.' };
-    }
-
-    if (!/^\d{6}$/.test(cleanPin)) {
-      return { success: false, error: 'PIN must be exactly 6 digits (numbers only).' };
-    }
+    if (!cleanTmId) return { success: false, error: 'Please enter your TM ID (e.g. TM-001).' };
+    if (!cleanPin) return { success: false, error: 'Please enter your 6-digit PIN.' };
+    if (!/^\d{6}$/.test(cleanPin)) return { success: false, error: 'PIN must be exactly 6 digits (numbers only).' };
 
     const matchedMember = members.find(
       (m) =>
@@ -269,12 +167,9 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         m.id.toUpperCase() === `MEM-${cleanTmId}`
     );
 
-    if (!matchedMember) {
-      return { success: false, error: `No registered team member found with TM ID "${cleanTmId}".` };
-    }
+    if (!matchedMember) return { success: false, error: `No registered team member found with TM ID "${cleanTmId}".` };
 
-    const expectedPin = matchedMember.pin || '123456';
-    if (cleanPin !== expectedPin) {
+    if (cleanPin !== (matchedMember.pin || '123456')) {
       return { success: false, error: 'Incorrect 6-digit PIN. Please verify and try again.' };
     }
 
@@ -298,7 +193,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     }
   };
 
-  // View state
+  // ─── View state ────────────────────────────────────────────
   const [currentView, setCurrentViewState] = useState<ViewTab>('calendar');
 
   const setCurrentView = (view: ViewTab) => {
@@ -317,16 +212,19 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       setCurrentViewState('calendar');
     }
   };
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeMemberId);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [activeMemberId]);
+
   const [selectedDepartment, setSelectedDepartment] = useState<string>('All');
   const [selectedLeaveType, setSelectedLeaveType] = useState<string>('All');
-
-  // Calendar sub-view state: 'week' | 'month' (default 'week')
   const [calendarMode, setCalendarModeState] = useState<CalendarViewMode>('week');
-
-  // Focused date: defaults to present day
   const [focusedDate, setFocusedDateState] = useState<Date>(() => new Date());
-
-  // Month navigation: synchronized with focusedDate
   const [currentYear, setCurrentYear] = useState<number>(() => new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState<number>(() => new Date().getMonth());
 
@@ -339,10 +237,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   const setCalendarMode = (mode: CalendarViewMode) => {
     setCalendarModeState(mode);
     setSelectedDate(null);
-    if (mode === 'week') {
-      // In week view, always first present day and show next 6 days
-      setFocusedDate(new Date());
-    }
+    if (mode === 'week') setFocusedDate(new Date());
   };
 
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -350,41 +245,13 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [requestInitialDate, setRequestInitialDate] = useState<string | null>(null);
 
   const openAddLeaveModal = (initialDate?: string) => {
-    if (initialDate) {
-      setRequestInitialDate(initialDate);
-    } else {
-      setRequestInitialDate(null);
-    }
+    setRequestInitialDate(initialDate || null);
     setIsRequestModalOpen(true);
   };
 
-  // Sync to local storage
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY_MEMBERS, JSON.stringify(members));
-    } catch (e) {
-      console.error('Failed to save members', e);
-    }
-  }, [members]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY_REQUESTS, JSON.stringify(requests));
-    } catch (e) {
-      console.error('Failed to save requests', e);
-    }
-  }, [requests]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY_ACTIVE_USER, activeMemberId);
-    } catch (e) {
-      console.error('Failed to save active user', e);
-    }
-  }, [activeMemberId]);
-
+  // ─── Derived ───────────────────────────────────────────────
   const activeMember = useMemo(() => {
-    return members.find((m) => m.id === activeMemberId) || members[0] || INITIAL_MEMBERS[0];
+    return members.find((m) => m.id === activeMemberId) || members[0] || {} as TeamMember;
   }, [members, activeMemberId]);
 
   const isAdmin = activeMember.role === 'admin';
@@ -393,13 +260,13 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     return requests.filter((r) => r.status === 'pending').length;
   }, [requests]);
 
+  // ─── Navigation ────────────────────────────────────────────
   const goToPrevious = () => {
     if (calendarMode === 'week') {
       const today = new Date();
       const todayStr = formatISODate(today);
       const prev = new Date(focusedDate);
       prev.setDate(prev.getDate() - 7);
-      // In week view, past week days are not important - never navigate prior to present day
       if (formatISODate(prev) < todayStr) {
         setFocusedDate(today);
       } else {
@@ -432,23 +299,15 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     setFocusedDate(nxt);
   };
 
-  const goToToday = () => {
-    const today = new Date();
-    setFocusedDate(today);
-  };
+  const goToToday = () => setFocusedDate(new Date());
 
+  // ─── Computed helpers ──────────────────────────────────────
   const getMemberUsedDays = (memberId: string): Record<LeaveType, number> & { total: number } => {
     const approvedRequests = requests.filter(
       (r) => r.memberId === memberId && r.status === 'approved'
     );
     const summary: Record<LeaveType, number> & { total: number } = {
-      DO: 0,
-      PH: 0,
-      AL: 0,
-      RR: 0,
-      SL: 0,
-      FRL: 0,
-      total: 0,
+      DO: 0, PH: 0, AL: 0, RR: 0, SL: 0, FRL: 0, total: 0,
     };
     approvedRequests.forEach((req) => {
       if (summary[req.leaveType] !== undefined) {
@@ -480,7 +339,6 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     const totalCount = deptMembers.length;
     const awayRatio = awayCount / totalCount;
 
-    // Warning if 50% or more are away, or if more than 1 are away in a small team
     if (awayCount >= 2 && awayRatio >= 0.4) {
       return {
         isWarning: true,
@@ -492,6 +350,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     return null;
   };
 
+  // ─── Mutations ─────────────────────────────────────────────
   const submitRequest = (data: {
     memberId: string;
     leaveType: LeaveType;
@@ -503,8 +362,11 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     reason: string;
   }) => {
     const member = members.find((m) => m.id === data.memberId) || activeMember;
+    const id = `req-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+    const now = new Date().toISOString();
+
     const newReq: TimeOffRequest = {
-      id: `req-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      id,
       memberId: member.id,
       memberName: member.name,
       memberAvatarColor: member.avatarColor,
@@ -517,79 +379,85 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       daysCount: data.daysCount,
       reason: data.reason.trim() || 'No specific note provided',
       status: 'approved',
-      submittedAt: new Date().toISOString(),
+      submittedAt: now,
     };
 
     setRequests((prev) => [newReq, ...prev]);
     setIsRequestModalOpen(false);
+
+    supabase.from('time_off_requests').insert({
+      id,
+      member_id: member.id,
+      member_name: member.name,
+      member_avatar_color: member.avatarColor,
+      department: member.department,
+      leave_type: data.leaveType,
+      is_out_of_island: !!data.isOutOfIsland,
+      start_date: data.startDate,
+      end_date: data.endDate,
+      duration_type: data.durationType,
+      days_count: data.daysCount,
+      reason: data.reason.trim() || 'No specific note provided',
+      status: 'approved',
+      submitted_at: now,
+    }).then(({ error }) => {
+      if (error) console.error('Failed to save request to DB:', error);
+    });
   };
 
   const cancelRequest = (requestId: string) => {
     const target = requests.find((r) => r.id === requestId);
     if (!target) return;
-    // Each requestor can add/delete ONLY their own leave, admin can delete any leave
     if (activeMember.role !== 'admin' && target.memberId !== activeMember.id) {
       console.warn('Unauthorized: You can only delete your own leave.');
       return;
     }
     setRequests((prev) => prev.filter((r) => r.id !== requestId));
+    supabase.from('time_off_requests').delete().eq('id', requestId)
+      .then(({ error }) => { if (error) console.error('Failed to delete request:', error); });
   };
 
-  const deleteRequest = (requestId: string) => {
-    cancelRequest(requestId);
-  };
+  const deleteRequest = (requestId: string) => cancelRequest(requestId);
 
   const reviewRequest = (
     requestId: string,
     status: 'approved' | 'rejected',
     reviewNote?: string
   ) => {
+    const now = new Date().toISOString();
     setRequests((prev) =>
-      prev.map((r) => {
-        if (r.id === requestId) {
-          return {
-            ...r,
-            status,
-            reviewedAt: new Date().toISOString(),
-            reviewedBy: activeMember.name,
-            reviewNote: reviewNote || (status === 'approved' ? 'Approved by Admin' : 'Declined'),
-          };
-        }
-        return r;
-      })
+      prev.map((r) => r.id === requestId ? {
+        ...r, status, reviewedAt: now, reviewedBy: activeMember.name,
+        reviewNote: reviewNote || (status === 'approved' ? 'Approved by Admin' : 'Declined'),
+      } : r)
     );
+    supabase.from('time_off_requests').update({
+      status, reviewed_at: now, reviewed_by: activeMember.name,
+      review_note: reviewNote || (status === 'approved' ? 'Approved by Admin' : 'Declined'),
+    }).eq('id', requestId)
+      .then(({ error }) => { if (error) console.error('Failed to review request:', error); });
   };
 
   const bulkReviewRequests = (requestIds: string[], status: 'approved' | 'rejected') => {
     const now = new Date().toISOString();
     setRequests((prev) =>
-      prev.map((r) => {
-        if (requestIds.includes(r.id) && r.status === 'pending') {
-          return {
-            ...r,
-            status,
-            reviewedAt: now,
-            reviewedBy: activeMember.name,
-            reviewNote: status === 'approved' ? 'Batch approved by Admin' : 'Batch declined',
-          };
-        }
-        return r;
-      })
+      prev.map((r) => requestIds.includes(r.id) && r.status === 'pending' ? {
+        ...r, status, reviewedAt: now, reviewedBy: activeMember.name,
+        reviewNote: status === 'approved' ? 'Batch approved by Admin' : 'Batch declined',
+      } : r)
     );
+    supabase.from('time_off_requests').update({
+      status, reviewed_at: now, reviewed_by: activeMember.name,
+      review_note: status === 'approved' ? 'Batch approved by Admin' : 'Batch declined',
+    }).in('id', requestIds)
+      .then(({ error }) => { if (error) console.error('Failed to bulk review:', error); });
   };
 
+  // ─── Member mutations ──────────────────────────────────────
   const addTeamMember = (
     data: Partial<TeamMember> & { name: string; department: Department; jobTitle: string; tmId?: string }
   ) => {
-    const initials = data.name
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean)
-      .map((part) => part[0])
-      .slice(0, 2)
-      .join('')
-      .toUpperCase();
-
+    const initials = getInitials(data.name);
     const assignedTmId =
       data.tmId && data.tmId.trim()
         ? data.tmId.trim().toUpperCase()
@@ -601,72 +469,73 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         : `${data.name.trim().toLowerCase().replace(/[^a-z0-9]/g, '.')}@acme.inc`;
 
     const avatarPalette = [
-      'bg-indigo-600 text-white',
-      'bg-emerald-600 text-white',
-      'bg-amber-600 text-white',
-      'bg-rose-600 text-white',
-      'bg-sky-600 text-white',
-      'bg-teal-600 text-white',
-      'bg-fuchsia-600 text-white',
-      'bg-neutral-800 text-white',
+      'bg-indigo-600 text-white', 'bg-emerald-600 text-white', 'bg-amber-600 text-white',
+      'bg-rose-600 text-white', 'bg-sky-600 text-white', 'bg-teal-600 text-white',
+      'bg-fuchsia-600 text-white', 'bg-neutral-800 text-white',
     ];
-    const pickedAvatar =
-      data.avatarColor || avatarPalette[members.length % avatarPalette.length];
+    const pickedAvatar = data.avatarColor || avatarPalette[members.length % avatarPalette.length];
 
-    const cleanPin =
-      data.pin && /^\d{6}$/.test(data.pin.trim()) ? data.pin.trim() : '123456';
+    const cleanPin = data.pin && /^\d{6}$/.test(data.pin.trim()) ? data.pin.trim() : '123456';
+    const id = `mem-${Date.now()}`;
 
     const newMember: TeamMember = {
-      id: `mem-${Date.now()}`,
+      id,
       tmId: assignedTmId,
       pin: cleanPin,
       name: data.name.trim(),
       email: cleanEmail,
       avatarColor: pickedAvatar,
-      avatarInitials: initials || 'TM',
+      avatarInitials: initials,
       role: data.role || 'requestor',
       department: data.department,
       jobTitle: data.jobTitle.trim() || 'Team Member',
       joinedDate: data.joinedDate || new Date().toISOString().split('T')[0],
-      allowances: data.allowances || {
-        AL: 25,
-        RR: 14,
-        SL: 14,
-        DO: 52,
-        PH: 10,
-        FRL: 5,
-      },
+      allowances: data.allowances || { AL: 25, RR: 14, SL: 14, DO: 52, PH: 10, FRL: 5 },
     };
 
     setMembers((prev) => [...prev, newMember]);
+
+    supabase.from('team_members').insert({
+      id,
+      tm_id: assignedTmId,
+      pin: cleanPin,
+      name: newMember.name,
+      email: cleanEmail,
+      avatar_color: pickedAvatar,
+      avatar_initials: initials,
+      role: newMember.role,
+      department: newMember.department,
+      job_title: newMember.jobTitle,
+      joined_date: newMember.joinedDate,
+      allowances: newMember.allowances,
+    }).then(({ error }) => { if (error) console.error('Failed to save member:', error); });
   };
 
   const updateMemberRole = (memberId: string, role: UserRole) => {
-    setMembers((prev) =>
-      prev.map((m) => (m.id === memberId ? { ...m, role } : m))
-    );
+    setMembers((prev) => prev.map((m) => m.id === memberId ? { ...m, role } : m));
+    supabase.from('team_members').update({ role }).eq('id', memberId)
+      .then(({ error }) => { if (error) console.error('Failed to update role:', error); });
   };
 
   const updateMember = (memberId: string, data: Partial<TeamMember>) => {
     setMembers((prev) =>
       prev.map((m) => {
         if (m.id !== memberId) return m;
-        const updatedPin =
-          data.pin && /^\d{6}$/.test(data.pin.trim()) ? data.pin.trim() : m.pin;
-        return {
-          ...m,
-          ...data,
-          pin: updatedPin,
-        };
+        const updatedPin = data.pin && /^\d{6}$/.test(data.pin.trim()) ? data.pin.trim() : m.pin;
+        return { ...m, ...data, pin: updatedPin };
       })
     );
     if (data.avatarColor) {
       setRequests((prev) =>
-        prev.map((r) =>
-          r.memberId === memberId ? { ...r, memberAvatarColor: data.avatarColor! } : r
-        )
+        prev.map((r) => r.memberId === memberId ? { ...r, memberAvatarColor: data.avatarColor! } : r)
       );
+      supabase.from('time_off_requests').update({ member_avatar_color: data.avatarColor })
+        .eq('member_id', memberId)
+        .then(({ error }) => { if (error) console.error('Failed to sync avatar on requests:', error); });
     }
+    const dbData = appMemberToDb(data as Partial<TeamMember> & { name: string; department: string; jobTitle: string });
+    supabase.from('team_members').update(dbData).eq('id', memberId)
+      .then(({ error }) => { if (error) console.error('Failed to update member:', error); });
   };
 
   const deleteMember = (memberId: string) => {
@@ -676,29 +545,23 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
     }
     setMembers((prev) => prev.filter((m) => m.id !== memberId));
     setRequests((prev) => prev.filter((r) => r.memberId !== memberId));
+    supabase.from('team_members').delete().eq('id', memberId)
+      .then(({ error }) => { if (error) console.error('Failed to delete member:', error); });
   };
 
   const updateMemberAllowances = (memberId: string, allowances: LeaveAllowance) => {
-    setMembers((prev) =>
-      prev.map((m) => (m.id === memberId ? { ...m, allowances } : m))
-    );
+    setMembers((prev) => prev.map((m) => m.id === memberId ? { ...m, allowances } : m));
+    supabase.from('team_members').update({ allowances }).eq('id', memberId)
+      .then(({ error }) => { if (error) console.error('Failed to update allowances:', error); });
   };
 
   const resetToDefaults = () => {
-    setMembers(INITIAL_MEMBERS);
-    setRequests(INITIAL_REQUESTS);
     setActiveMemberId('mem-asnad');
     setIsAuthenticated(false);
     try {
-      localStorage.removeItem(STORAGE_KEY_MEMBERS);
-      localStorage.removeItem(STORAGE_KEY_REQUESTS);
       localStorage.removeItem(STORAGE_KEY_ACTIVE_USER);
       localStorage.removeItem(STORAGE_KEY_AUTH);
-      localStorage.removeItem(LEGACY_STORAGE_KEY_MEMBERS);
-      localStorage.removeItem(LEGACY_STORAGE_KEY_REQUESTS);
-    } catch {
-      // ignore
-    }
+    } catch { /* ignore */ }
   };
 
   return (
@@ -706,9 +569,9 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       value={{
         members,
         requests,
-        holidays: INITIAL_HOLIDAYS,
+        holidays,
         activeMemberId,
-        activeMember,
+        activeMember: activeMember as TeamMember,
         isAdmin,
         currentView,
         setCurrentView,
@@ -752,6 +615,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         isAuthenticated,
         login,
         logout,
+        loading,
       }}
     >
       {children}

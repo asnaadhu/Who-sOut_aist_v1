@@ -14,7 +14,18 @@ import { LoginPage } from './components/Auth/LoginPage';
 import { MobileBottomNav } from './components/Navigation/MobileBottomNav';
 
 const AppContent: React.FC = () => {
-  const { currentView, isAuthenticated } = useCalendar();
+  const { currentView, isAuthenticated, loading } = useCalendar();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-neutral-100">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-neutral-300 border-t-neutral-900 rounded-full animate-spin" />
+          <p className="text-xs text-neutral-500 font-medium">Loading your calendar…</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return <LoginPage />;

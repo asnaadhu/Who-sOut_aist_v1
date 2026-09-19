@@ -8,7 +8,6 @@ import {
   Mail,
   Briefcase,
   IdCard,
-  RotateCcw,
 } from 'lucide-react';
 import { LeaveType } from '../../types';
 
@@ -24,7 +23,6 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
     setIsRequestModalOpen,
     setCurrentView,
     getMemberUsedDays,
-    resetToDefaults,
   } = useCalendar();
 
   if (!isOpen) return null;
@@ -162,18 +160,6 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
               </button>
             )}
 
-            <button
-              onClick={() => {
-                if (window.confirm('Reset all demo requests back to default?')) {
-                  resetToDefaults();
-                  onClose();
-                }
-              }}
-              className="w-full py-2 px-4 text-neutral-500 hover:text-neutral-700 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset Sample Data</span>
-            </button>
           </div>
 
           {/* Sign Out Button */}

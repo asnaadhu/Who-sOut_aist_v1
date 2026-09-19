@@ -86,7 +86,6 @@ interface CalendarContextType {
     message: string;
   } | null;
   pendingRequestsCount: number;
-  resetToDefaults: () => void;
   isAuthenticated: boolean;
   mustChangePin: boolean;
   login: (tmId: string, pin: string) => { success: boolean; error?: string };
@@ -634,15 +633,6 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       .then(({ error }) => { if (error) console.error('Failed to update allowances:', error); });
   };
 
-  const resetToDefaults = () => {
-    setActiveMemberId('mem-asnad');
-    setIsAuthenticated(false);
-    try {
-      localStorage.removeItem(STORAGE_KEY_ACTIVE_USER);
-      localStorage.removeItem(STORAGE_KEY_AUTH);
-    } catch { /* ignore */ }
-  };
-
   return (
     <CalendarContext.Provider
       value={{
@@ -690,7 +680,6 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         getRequestsForDate,
         getDepartmentCoverageWarning,
         pendingRequestsCount,
-        resetToDefaults,
         isAuthenticated,
         mustChangePin,
         login,

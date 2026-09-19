@@ -3,7 +3,6 @@ import {
   Calendar as CalendarIcon,
   ShieldCheck,
   Plus,
-  RotateCcw,
   Layers,
   LogOut,
 } from 'lucide-react';
@@ -16,7 +15,6 @@ export const Header: React.FC = () => {
     currentView,
     setCurrentView,
     setIsRequestModalOpen,
-    resetToDefaults,
     logout,
   } = useCalendar();
 
@@ -191,19 +189,7 @@ export const Header: React.FC = () => {
                     )}
                   </div>
 
-                  {/* Secondary info footer */}
-                  <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-400">
-                    <button
-                      onClick={() => {
-                        resetToDefaults();
-                        setIsProfileMenuOpen(false);
-                      }}
-                      className="hover:text-neutral-700 flex items-center gap-1 text-[10px] cursor-pointer"
-                      title="Reset demo data to initial defaults"
-                    >
-                      <RotateCcw className="w-3 h-3" />
-                      <span>Reset Demo</span>
-                    </button>
+                  <div className="pt-2 border-t border-neutral-100 flex justify-end text-[11px] text-neutral-400">
                     <span className="font-mono text-[10px]">PIN: {activeMember.pin || '123456'}</span>
                   </div>
                 </div>

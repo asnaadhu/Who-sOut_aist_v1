@@ -162,7 +162,8 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
 
           </div>
 
-          {/* Sign Out Button */}
+          {/* Sign Out Button (admins only) */}
+          {isAdmin && (
           <div className="pt-2 border-t border-neutral-100">
             <button
               onClick={() => {
@@ -175,6 +176,7 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
               <span>Sign Out</span>
             </button>
           </div>
+          )}
         </div>
       </div>
     </div>

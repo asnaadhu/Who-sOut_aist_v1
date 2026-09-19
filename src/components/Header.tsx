@@ -176,6 +176,8 @@ export const Header: React.FC = () => {
                       <span>Request Time Off</span>
                     </button>
 
+                    {/* Sign Out (admins only) */}
+                    {isAdmin && (
                     <button
                       onClick={() => {
                         setIsProfileMenuOpen(false);
@@ -186,6 +188,7 @@ export const Header: React.FC = () => {
                       <LogOut className="w-3.5 h-3.5" />
                       <span>Sign Out of Account</span>
                     </button>
+                    )}
                   </div>
 
                   {/* Secondary info footer */}
@@ -207,7 +210,8 @@ export const Header: React.FC = () => {
               )}
             </div>
 
-            {/* Quick Sign Out Icon Button in Desktop Header */}
+            {/* Quick Sign Out Icon Button in Desktop Header (admins only) */}
+            {isAdmin && (
             <button
               onClick={logout}
               className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 rounded-lg border border-transparent hover:border-neutral-200 transition-colors"
@@ -216,6 +220,7 @@ export const Header: React.FC = () => {
               <LogOut className="w-3.5 h-3.5 text-neutral-400" />
               <span>Sign Out</span>
             </button>
+            )}
           </div>
         </div>
       </div>

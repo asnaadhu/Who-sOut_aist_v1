@@ -7,7 +7,6 @@ import {
   EyeOff,
   AlertCircle,
   ArrowRight,
-  CheckCircle2,
   MessageCircle,
   Mail,
   LifeBuoy,
@@ -165,12 +164,6 @@ export const LoginPage: React.FC = () => {
               )}
             </button>
           </form>
-        </div>
-
-        {/* Security assurance */}
-        <div className="text-center text-xs text-neutral-400 flex items-center justify-center gap-1.5">
-          <CheckCircle2 className="w-3.5 h-3.5 text-neutral-400" />
-          <span>Role-based access &bull; Administrators manage user PINs in Settings</span>
         </div>
 
         {/* Account support contact */}

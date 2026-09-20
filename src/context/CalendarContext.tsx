@@ -533,9 +533,9 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         : `${data.name.trim().toLowerCase().replace(/[^a-z0-9]/g, '.')}@acme.inc`;
 
     const avatarPalette = [
-      'bg-teal-600 text-white', 'bg-emerald-600 text-white', 'bg-amber-600 text-white',
-      'bg-rose-600 text-white', 'bg-sky-600 text-white', 'bg-cyan-600 text-white',
-      'bg-orange-600 text-white', 'bg-neutral-800 text-white',
+      'bg-[#14213D] text-white', 'bg-[#FCA311] text-[#14213D]', 'bg-[#000000] text-white',
+      'bg-[#E4E4E4] text-[#14213D]', 'bg-white text-[#14213D] border border-[#14213D]',
+      'bg-[#FCA311] text-[#14213D] border border-[#14213D]',
     ];
     const pickedAvatar = data.avatarColor || avatarPalette[members.length % avatarPalette.length];
 

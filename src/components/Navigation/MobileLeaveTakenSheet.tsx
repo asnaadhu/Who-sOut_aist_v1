@@ -16,16 +16,16 @@ export const MobileLeaveTakenSheet: React.FC<MobileLeaveTakenSheetProps> = ({ is
   const used = getMemberUsedDays(activeMember.id);
 
   const leaveItems: { type: LeaveType; label: string; bg: string; text: string; border: string }[] = [
-    { type: 'AL', label: 'Annual Leave', bg: 'bg-emerald-50', text: 'text-emerald-800', border: 'border-emerald-200' },
-    { type: 'RR', label: 'Rest & Relax', bg: 'bg-sky-50', text: 'text-sky-800', border: 'border-sky-200' },
-    { type: 'SL', label: 'Sick Leave', bg: 'bg-rose-50', text: 'text-rose-800', border: 'border-rose-200' },
-    { type: 'DO', label: 'Day Off', bg: 'bg-neutral-100', text: 'text-neutral-800', border: 'border-neutral-200' },
-    { type: 'PH', label: 'Public Hol.', bg: 'bg-cyan-50', text: 'text-cyan-800', border: 'border-cyan-200' },
-    { type: 'FRL', label: 'Family/Rel.', bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-200' },
+    { type: 'AL', label: 'Annual Leave', bg: 'bg-[#14213D]', text: 'text-white', border: 'border-[#14213D]' },
+    { type: 'RR', label: 'Rest & Relax', bg: 'bg-[#FCA311]', text: 'text-[#14213D]', border: 'border-[#14213D]' },
+    { type: 'SL', label: 'Sick Leave', bg: 'bg-[#000000]', text: 'text-white', border: 'border-[#000000]' },
+    { type: 'DO', label: 'Day Off', bg: 'bg-[#E4E4E4]', text: 'text-[#000000]', border: 'border-[#000000]' },
+    { type: 'PH', label: 'Public Hol.', bg: 'bg-[#FCA311]', text: 'text-[#14213D]', border: 'border-[#14213D]' },
+    { type: 'FRL', label: 'Family/Rel.', bg: 'bg-[#E4E4E4]', text: 'text-[#14213D]', border: 'border-[#14213D]' },
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-teal-900/40 backdrop-blur-xs animate-in fade-in duration-200 md:hidden">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-[#14213D]/50 backdrop-blur-xs animate-in fade-in duration-200 md:hidden">
       {/* Backdrop tap to close */}
       <div className="fixed inset-0" onClick={onClose} />
 
@@ -54,7 +54,7 @@ export const MobileLeaveTakenSheet: React.FC<MobileLeaveTakenSheetProps> = ({ is
         {/* Sheet Content */}
         <div className="p-5 overflow-y-auto space-y-5">
           {/* Total Summary */}
-          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-teal-800 to-teal-900 rounded-2xl text-white shadow-md shadow-teal-900/10">
+          <div className="flex items-center justify-between p-4 bg-[#14213D] rounded-2xl text-white">
             <div>
               <span className="text-xs font-medium text-neutral-300 uppercase tracking-wider">Total Days Used</span>
               <div className="text-3xl font-bold mt-0.5">{used.total ?? 0}</div>

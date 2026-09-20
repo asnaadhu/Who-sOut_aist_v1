@@ -2,50 +2,163 @@
 @import "tailwindcss";
 
 @theme {
-  /* Reference palette: charcoal-plum, mint, lavender, amber */
-  --color-teal-50: #f4f1f5;
-  --color-teal-100: #e7e2ea;
-  --color-teal-200: #d1c9d8;
-  --color-teal-300: #b7adbf;
-  --color-teal-400: #9693b0;
-  --color-teal-500: #77738f;
-  --color-teal-600: #5f596e;
-  --color-teal-700: #4f4859;
-  --color-teal-800: #433b49;
-  --color-teal-900: #302b35;
+  /*
+   * Strict 5-color palette:
+   *   #000000  Black
+   *   #14213D  Navy (primary accent)
+   *   #FCA311  Amber (secondary accent / warnings)
+   *   #E4E4E4  Light Gray (surfaces / borders)
+   *   #FFFFFF  White
+   *
+   * Every color ramp below maps to one of these five hex values.
+   * Light tints (50-200) are the gray/white; dark shades (600-900) are
+   * navy or black; amber is used for the warning/holiday ramp.
+   */
 
-  --color-cyan-50: #f1fff3;
-  --color-cyan-100: #e2f8e7;
-  --color-cyan-200: #c7ecd0;
-  --color-cyan-300: #a7dcb4;
-  --color-cyan-400: #86c89a;
-  --color-cyan-500: #6db27f;
-  --color-cyan-600: #559667;
-  --color-cyan-700: #417a51;
-  --color-cyan-800: #315f3e;
-  --color-cyan-900: #24482f;
+  /* teal  → Navy (primary accent) */
+  --color-teal-50: #ffffff;
+  --color-teal-100: #e4e4e4;
+  --color-teal-200: #e4e4e4;
+  --color-teal-300: #e4e4e4;
+  --color-teal-400: #14213d;
+  --color-teal-500: #14213d;
+  --color-teal-600: #14213d;
+  --color-teal-700: #14213d;
+  --color-teal-800: #14213d;
+  --color-teal-900: #14213d;
 
-  --color-amber-50: #fff9e8;
-  --color-amber-100: #fff0bd;
-  --color-amber-200: #ffdc72;
-  --color-amber-300: #ffc83d;
-  --color-amber-400: #ffb815;
-  --color-amber-500: #f2a900;
-  --color-amber-600: #d88f00;
-  --color-amber-700: #b67400;
-  --color-amber-800: #8f5900;
-  --color-amber-900: #684000;
+  /* cyan  → Amber (secondary accent / public holiday) */
+  --color-cyan-50: #ffffff;
+  --color-cyan-100: #e4e4e4;
+  --color-cyan-200: #e4e4e4;
+  --color-cyan-300: #e4e4e4;
+  --color-cyan-400: #fca311;
+  --color-cyan-500: #fca311;
+  --color-cyan-600: #fca311;
+  --color-cyan-700: #fca311;
+  --color-cyan-800: #14213d;
+  --color-cyan-900: #14213d;
 
-  --color-emerald-50: #f1fff3;
-  --color-emerald-100: #e2f8e7;
-  --color-emerald-200: #c7ecd0;
-  --color-emerald-300: #a7dcb4;
-  --color-emerald-400: #86c89a;
-  --color-emerald-500: #6db27f;
-  --color-emerald-600: #559667;
-  --color-emerald-700: #417a51;
-  --color-emerald-800: #315f3e;
-  --color-emerald-900: #24482f;
+  /* emerald → Navy (success / annual leave uses navy treatment) */
+  --color-emerald-50: #ffffff;
+  --color-emerald-100: #e4e4e4;
+  --color-emerald-200: #e4e4e4;
+  --color-emerald-300: #e4e4e4;
+  --color-emerald-400: #14213d;
+  --color-emerald-500: #14213d;
+  --color-emerald-600: #14213d;
+  --color-emerald-700: #14213d;
+  --color-emerald-800: #14213d;
+  --color-emerald-900: #14213d;
+
+  /* amber → Amber (warnings / FRL) */
+  --color-amber-50: #ffffff;
+  --color-amber-100: #e4e4e4;
+  --color-amber-200: #e4e4e4;
+  --color-amber-300: #fca311;
+  --color-amber-400: #fca311;
+  --color-amber-500: #fca311;
+  --color-amber-600: #fca311;
+  --color-amber-700: #14213d;
+  --color-amber-800: #14213d;
+  --color-amber-900: #14213d;
+
+  /* rose  → Black (sick leave / danger) */
+  --color-rose-50: #e4e4e4;
+  --color-rose-100: #e4e4e4;
+  --color-rose-200: #e4e4e4;
+  --color-rose-300: #000000;
+  --color-rose-400: #000000;
+  --color-rose-500: #000000;
+  --color-rose-600: #000000;
+  --color-rose-700: #000000;
+  --color-rose-800: #000000;
+  --color-rose-900: #000000;
+
+  /* sky   → Amber light variant (RR leave / out-of-island) */
+  --color-sky-50: #ffffff;
+  --color-sky-100: #e4e4e4;
+  --color-sky-200: #e4e4e4;
+  --color-sky-300: #fca311;
+  --color-sky-400: #fca311;
+  --color-sky-500: #fca311;
+  --color-sky-600: #fca311;
+  --color-sky-700: #14213d;
+  --color-sky-800: #14213d;
+  --color-sky-900: #14213d;
+
+  /* blue  → Navy */
+  --color-blue-50: #ffffff;
+  --color-blue-100: #e4e4e4;
+  --color-blue-200: #e4e4e4;
+  --color-blue-300: #e4e4e4;
+  --color-blue-400: #14213d;
+  --color-blue-500: #14213d;
+  --color-blue-600: #14213d;
+  --color-blue-700: #14213d;
+  --color-blue-800: #14213d;
+  --color-blue-900: #14213d;
+
+  /* green → Navy */
+  --color-green-50: #ffffff;
+  --color-green-100: #e4e4e4;
+  --color-green-200: #e4e4e4;
+  --color-green-300: #e4e4e4;
+  --color-green-400: #14213d;
+  --color-green-500: #14213d;
+  --color-green-600: #14213d;
+  --color-green-700: #14213d;
+  --color-green-800: #14213d;
+  --color-green-900: #14213d;
+
+  /* red   → Black */
+  --color-red-50: #e4e4e4;
+  --color-red-100: #e4e4e4;
+  --color-red-200: #e4e4e4;
+  --color-red-300: #000000;
+  --color-red-400: #000000;
+  --color-red-500: #000000;
+  --color-red-600: #000000;
+  --color-red-700: #000000;
+  --color-red-800: #000000;
+  --color-red-900: #000000;
+
+  /* orange → Amber */
+  --color-orange-50: #ffffff;
+  --color-orange-100: #e4e4e4;
+  --color-orange-200: #e4e4e4;
+  --color-orange-300: #fca311;
+  --color-orange-400: #fca311;
+  --color-orange-500: #fca311;
+  --color-orange-600: #fca311;
+  --color-orange-700: #14213d;
+  --color-orange-800: #14213d;
+  --color-orange-900: #14213d;
+
+  /* lime  → Amber */
+  --color-lime-50: #ffffff;
+  --color-lime-100: #e4e4e4;
+  --color-lime-200: #e4e4e4;
+  --color-lime-300: #fca311;
+  --color-lime-400: #fca311;
+  --color-lime-500: #fca311;
+  --color-lime-600: #fca311;
+  --color-lime-700: #14213d;
+  --color-lime-800: #14213d;
+  --color-lime-900: #14213d;
+
+  /* neutral → Light Gray / Navy / White (UI surfaces, text, borders) */
+  --color-neutral-50: #ffffff;
+  --color-neutral-100: #e4e4e4;
+  --color-neutral-200: #e4e4e4;
+  --color-neutral-300: #e4e4e4;
+  --color-neutral-400: #14213d;
+  --color-neutral-500: #14213d;
+  --color-neutral-600: #14213d;
+  --color-neutral-700: #14213d;
+  --color-neutral-800: #14213d;
+  --color-neutral-900: #14213d;
+  --color-neutral-950: #000000;
 }
 
 @layer utilities {
@@ -75,10 +188,9 @@ button, a, select, input {
 }
 
 body {
-  background-color: #f1fff3;
+  background-color: #e4e4e4;
 }
 
-/* Smooth scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -87,9 +199,9 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(67, 59, 73, 0.2);
+  background: rgba(20, 33, 61, 0.2);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(67, 59, 73, 0.35);
+  background: rgba(20, 33, 61, 0.4);
 }

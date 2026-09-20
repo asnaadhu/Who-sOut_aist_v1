@@ -41,9 +41,9 @@ export const LoginPage: React.FC = () => {
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-neutral-200/50 rounded-full blur-3xl opacity-50 pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-neutral-200/50 rounded-full blur-3xl opacity-40 pointer-events-none" />
 
-      <div className="w-full max-w-md space-y-6 relative z-10 pt-8 sm:pt-12">
+      <div className="w-full max-w-md space-y-6 relative z-10 pt-4 sm:pt-6">
         {/* Resort Logo */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-2">
           <img
             src="/Logo_BW.png"
             alt="Avani+ Fares Maldives Resort"

@@ -150,7 +150,7 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading || !tmId.trim() || pin.length !== 6}
-              className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-teal-700 to-teal-800 text-white hover:from-teal-800 hover:to-teal-900 disabled:bg-[#E4E4E4] disabled:text-[#14213D] font-semibold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-teal-900/10 disabled:cursor-not-allowed disabled:shadow-none cursor-pointer"
+              className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-teal-700 to-teal-800 text-white hover:from-teal-800 hover:to-teal-900 disabled:from-[#E4E4E4] disabled:to-[#E4E4E4] disabled:text-[#14213D] font-semibold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-teal-900/10 disabled:cursor-not-allowed disabled:shadow-none cursor-pointer"
             >
               {isLoading ? (
                 <>

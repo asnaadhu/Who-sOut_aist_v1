@@ -53,9 +53,11 @@ export const Header: React.FC = () => {
         <div className="flex items-center justify-between h-16 gap-2 sm:gap-4">
           {/* Logo & Brand */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-700 to-teal-900 text-white flex items-center justify-center shadow-sm shrink-0">
-              <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-300" />
-            </div>
+            <img
+              src="/icon.svg"
+              alt="Who's Out"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl shadow-sm shrink-0 object-cover"
+            />
             <div className="min-w-0">
               <h1 className="font-semibold text-neutral-900 text-sm sm:text-base leading-tight tracking-tight truncate">
                 Who’sOut

@@ -54,9 +54,9 @@ export const Header: React.FC = () => {
           {/* Logo & Brand */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <img
-              src="/icon.svg"
+              src="/whoisout.png"
               alt="Who's Out"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl shadow-sm shrink-0 object-cover"
+              className="h-9 sm:h-10 w-auto rounded-lg shadow-sm shrink-0"
             />
             <div className="min-w-0">
               <h1 className="font-semibold text-neutral-900 text-sm sm:text-base leading-tight tracking-tight truncate">

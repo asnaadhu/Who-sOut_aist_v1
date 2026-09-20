@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Who’sOut",
-  "short_name": "Who’sOut",
+  "name": "Who'sOut",
+  "short_name": "Who'sOut",
   "description": "Track team day-off requests, visualize availability with color-coded status indicators, and oversee team approvals.",
   "start_url": "/",
   "scope": "/",
@@ -11,15 +11,15 @@
   "theme_color": "#171717",
   "icons": [
     {
-      "src": "/icon.svg",
+      "src": "/whoisout.png",
       "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon.svg",
+      "src": "/whoisout.png",
       "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "maskable"
     }
   ]

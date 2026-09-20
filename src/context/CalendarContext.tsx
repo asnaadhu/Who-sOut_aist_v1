@@ -99,6 +99,9 @@ const CalendarContext = createContext<CalendarContextType | undefined>(undefined
 const STORAGE_KEY_ACTIVE_USER = 'team_calendar_active_user_v4';
 const STORAGE_KEY_AUTH = 'team_calendar_auth_v4';
 
+const sortByDepartment = (a: TeamMember, b: TeamMember) =>
+  a.department.localeCompare(b.department) || a.name.localeCompare(b.name);
+
 export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [requests, setRequests] = useState<TimeOffRequest[]>([]);
@@ -144,7 +147,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
         if (holidaysRes.error) console.error('Failed to load holidays:', holidaysRes.error);
 
         if (membersRes.data) {
-          setMembers((membersRes.data as DbTeamMember[]).map(dbMemberToApp));
+          setMembers((membersRes.data as DbTeamMember[]).map(dbMemberToApp).sort(sortByDepartment));
         }
         if (requestsRes.data) {
           setRequests((requestsRes.data as DbTimeOffRequest[]).map(dbRequestToApp));
@@ -174,7 +177,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
           supabase.from('team_members').select('*')
             .then(({ data, error }) => {
               if (error) { console.error('Realtime: failed to reload members:', error); return; }
-              if (data) setMembers((data as DbTeamMember[]).map(dbMemberToApp));
+              if (data) setMembers((data as DbTeamMember[]).map(dbMemberToApp).sort(sortByDepartment));
             });
         })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'time_off_requests' },
@@ -558,7 +561,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       pinChanged: false,
     };
 
-    setMembers((prev) => [...prev, newMember]);
+    setMembers((prev) => [...prev, newMember].sort(sortByDepartment));
 
     supabase.from('team_members').insert({
       id,

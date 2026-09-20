@@ -1,6 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+@theme {
+  /* Reference palette: charcoal-plum, mint, lavender, amber */
+  --color-teal-50: #f4f1f5;
+  --color-teal-100: #e7e2ea;
+  --color-teal-200: #d1c9d8;
+  --color-teal-300: #b7adbf;
+  --color-teal-400: #9693b0;
+  --color-teal-500: #77738f;
+  --color-teal-600: #5f596e;
+  --color-teal-700: #4f4859;
+  --color-teal-800: #433b49;
+  --color-teal-900: #302b35;
+
+  --color-cyan-50: #f1fff3;
+  --color-cyan-100: #e2f8e7;
+  --color-cyan-200: #c7ecd0;
+  --color-cyan-300: #a7dcb4;
+  --color-cyan-400: #86c89a;
+  --color-cyan-500: #6db27f;
+  --color-cyan-600: #559667;
+  --color-cyan-700: #417a51;
+  --color-cyan-800: #315f3e;
+  --color-cyan-900: #24482f;
+
+  --color-amber-50: #fff9e8;
+  --color-amber-100: #fff0bd;
+  --color-amber-200: #ffdc72;
+  --color-amber-300: #ffc83d;
+  --color-amber-400: #ffb815;
+  --color-amber-500: #f2a900;
+  --color-amber-600: #d88f00;
+  --color-amber-700: #b67400;
+  --color-amber-800: #8f5900;
+  --color-amber-900: #684000;
+
+  --color-emerald-50: #f1fff3;
+  --color-emerald-100: #e2f8e7;
+  --color-emerald-200: #c7ecd0;
+  --color-emerald-300: #a7dcb4;
+  --color-emerald-400: #86c89a;
+  --color-emerald-500: #6db27f;
+  --color-emerald-600: #559667;
+  --color-emerald-700: #417a51;
+  --color-emerald-800: #315f3e;
+  --color-emerald-900: #24482f;
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -28,7 +75,7 @@ button, a, select, input {
 }
 
 body {
-  background-color: #f0fdfa;
+  background-color: #f1fff3;
 }
 
 /* Smooth scrollbar styling */
@@ -40,9 +87,9 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(15, 118, 110, 0.2);
+  background: rgba(67, 59, 73, 0.2);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(15, 118, 110, 0.35);
+  background: rgba(67, 59, 73, 0.35);
 }

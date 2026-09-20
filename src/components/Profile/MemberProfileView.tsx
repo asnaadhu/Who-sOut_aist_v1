@@ -68,12 +68,12 @@ export const MemberProfileView: React.FC = () => {
                   {activeMember.tmId || activeMember.id.replace('mem-', 'TM-')}
                 </span>
                 {activeMember.role === 'admin' ? (
-                  <span className="bg-neutral-900 text-white text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="bg-gradient-to-r from-teal-700 to-teal-900 text-white text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
                     <Shield className="w-3 h-3 text-amber-400" />
                     Admin
                   </span>
                 ) : (
-                  <span className="bg-indigo-50 text-indigo-700 text-[11px] font-semibold px-2 py-0.5 rounded-full border border-indigo-200">
+                  <span className="bg-teal-50 text-teal-700 text-[11px] font-semibold px-2 py-0.5 rounded-full border border-teal-200">
                     Requestor
                   </span>
                 )}
@@ -102,7 +102,7 @@ export const MemberProfileView: React.FC = () => {
           <button
             id="profile-request-leave-btn"
             onClick={() => setIsRequestModalOpen(true)}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors min-h-[40px]"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 text-white text-xs font-semibold rounded-xl shadow-sm transition-all min-h-[40px]"
           >
             <Plus className="w-4 h-4" />
             <span>Add Leave to Calendar</span>

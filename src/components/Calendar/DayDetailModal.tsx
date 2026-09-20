@@ -46,7 +46,7 @@ export const DayDetailModal: React.FC<DayDetailModalProps> = ({ dateStr, onClose
   const departments: Department[] = ['Engineering', 'Product', 'Design', 'Marketing', 'Operations'];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-neutral-900/50 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-teal-900/40 backdrop-blur-xs animate-in fade-in duration-150">
       <div
         className="bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border border-neutral-200 w-full max-w-2xl max-h-[92vh] sm:max-h-[90vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-150"
         role="dialog"
@@ -59,7 +59,7 @@ export const DayDetailModal: React.FC<DayDetailModalProps> = ({ dateStr, onClose
         {/* Header */}
         <div className="p-3.5 sm:p-5 border-b border-neutral-200 flex items-center justify-between bg-neutral-50/70">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-neutral-900 text-white flex items-center justify-center font-bold shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-700 to-teal-900 text-white flex items-center justify-center font-bold shrink-0 shadow-sm">
               <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div className="min-w-0">
@@ -91,11 +91,11 @@ export const DayDetailModal: React.FC<DayDetailModalProps> = ({ dateStr, onClose
         <div className="p-4 sm:p-5 overflow-y-auto space-y-4 sm:space-y-5">
           {/* Public Holiday Banner if applicable */}
           {holiday && (
-            <div className="p-3.5 bg-violet-50 border border-violet-200 rounded-xl flex items-start gap-3">
-              <Sparkles className="w-5 h-5 text-violet-600 shrink-0 mt-0.5" />
+            <div className="p-3.5 bg-cyan-50 border border-cyan-200 rounded-xl flex items-start gap-3">
+              <Sparkles className="w-5 h-5 text-cyan-600 shrink-0 mt-0.5" />
               <div>
-                <h4 className="text-xs font-bold text-violet-900">{holiday.name}</h4>
-                <p className="text-xs text-violet-700 mt-0.5">{holiday.description}</p>
+                <h4 className="text-xs font-bold text-cyan-900">{holiday.name}</h4>
+                <p className="text-xs text-cyan-700 mt-0.5">{holiday.description}</p>
               </div>
             </div>
           )}
@@ -266,7 +266,7 @@ export const DayDetailModal: React.FC<DayDetailModalProps> = ({ dateStr, onClose
           </button>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold rounded-lg shadow-xs transition-colors"
+            className="px-4 py-2 bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 text-white text-xs font-semibold rounded-lg shadow-sm transition-all"
           >
             Close
           </button>

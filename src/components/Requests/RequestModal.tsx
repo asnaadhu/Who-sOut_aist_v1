@@ -107,18 +107,18 @@ export const RequestModal: React.FC = () => {
   const leaveTypesList: LeaveType[] = ['DO', 'PH', 'AL', 'RR', 'SL', 'FRL'];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-neutral-900/50 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-teal-900/40 backdrop-blur-xs animate-in fade-in duration-150">
       <div
-        className="bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border border-neutral-200 w-full max-w-xl max-h-[92vh] sm:max-h-[92vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-150"
+        className="bg-white/95 backdrop-blur-md rounded-t-3xl sm:rounded-2xl shadow-2xl shadow-teal-900/20 border border-teal-100/80 w-full max-w-xl max-h-[92vh] sm:max-h-[92vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-150"
         role="dialog"
       >
         {/* Mobile Drag Indicator */}
-        <div className="sm:hidden pt-2.5 pb-0.5 flex justify-center bg-neutral-50/60">
-          <div className="w-10 h-1 bg-neutral-300 rounded-full" />
+        <div className="sm:hidden pt-2.5 pb-0.5 flex justify-center bg-teal-50/40">
+          <div className="w-10 h-1 bg-teal-200 rounded-full" />
         </div>
 
         {/* Header */}
-        <div className="p-3.5 sm:p-5 border-b border-neutral-200 flex items-center justify-between bg-neutral-50/60">
+        <div className="p-3.5 sm:p-5 border-b border-teal-50 flex items-center justify-between bg-teal-50/40">
           <div className="min-w-0">
             <h3 className="text-sm sm:text-base font-bold text-neutral-900 truncate">
               Add Leave to Calendar
@@ -138,14 +138,14 @@ export const RequestModal: React.FC = () => {
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-4 sm:p-5 overflow-y-auto space-y-4 sm:space-y-5">
           {/* User Selection: Admin can choose user or themselves; Requestor is strictly locked */}
-          <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200/80">
+          <div className="p-3 bg-teal-50/50 rounded-xl border border-teal-100/80">
             {isAdmin ? (
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-bold text-neutral-800">
                     Schedule Leave For:
                   </label>
-                  <span className="text-[10px] font-bold bg-neutral-900 text-white px-2 py-0.2 rounded-full">
+                  <span className="text-[10px] font-bold bg-gradient-to-r from-teal-700 to-teal-900 text-white px-2 py-0.2 rounded-full">
                     Admin Privilege
                   </span>
                 </div>
@@ -183,7 +183,7 @@ export const RequestModal: React.FC = () => {
                     <span className="text-[10px] font-mono font-bold bg-neutral-200 text-neutral-800 px-1.5 py-0.2 rounded">
                       {targetMember.tmId || targetMember.id.replace('mem-', 'TM-')}
                     </span>
-                    <span className="text-[10px] bg-indigo-50 text-indigo-700 font-bold border border-indigo-200 px-1.5 py-0.2 rounded">
+                    <span className="text-[10px] bg-teal-50 text-teal-700 font-bold border border-teal-200 px-1.5 py-0.2 rounded">
                       Requestor
                     </span>
                     <span className="text-[10px] bg-white border border-neutral-200 text-neutral-600 px-1.5 py-0.2 rounded font-medium">
@@ -213,8 +213,8 @@ export const RequestModal: React.FC = () => {
                     onClick={() => setLeaveType(type)}
                     className={`p-2.5 sm:p-3 rounded-xl border text-left cursor-pointer transition-all flex items-center gap-2 ${
                       isSelected
-                        ? 'border-neutral-900 bg-neutral-900 text-white shadow-xs ring-1 ring-neutral-900'
-                        : 'border-neutral-200 bg-white hover:border-neutral-300 text-neutral-800'
+                        ? 'border-teal-700 bg-gradient-to-br from-teal-700 to-teal-800 text-white shadow-md ring-1 ring-teal-700'
+                        : 'border-neutral-200 bg-white hover:border-teal-300 text-neutral-800'
                     }`}
                   >
                     <span
@@ -279,7 +279,7 @@ export const RequestModal: React.FC = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 p-1 bg-neutral-100 rounded-xl border border-neutral-200/80">
+            <div className="grid grid-cols-2 gap-2 p-1 bg-teal-50/60 rounded-xl border border-teal-100/80">
               <button
                 type="button"
                 id="leave-span-single-day"
@@ -289,8 +289,8 @@ export const RequestModal: React.FC = () => {
                 }}
                 className={`py-2 px-3 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
                   isSingleDay
-                    ? 'bg-white text-neutral-900 shadow-2xs font-bold border border-neutral-200/70'
-                    : 'text-neutral-600 hover:text-neutral-900'
+                    ? 'bg-white text-teal-900 shadow-sm font-bold border border-teal-100'
+                    : 'text-neutral-600 hover:text-teal-900'
                 }`}
               >
                 <span>1 Day (Single Date)</span>
@@ -305,8 +305,8 @@ export const RequestModal: React.FC = () => {
                 }}
                 className={`py-2 px-3 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
                   !isSingleDay
-                    ? 'bg-white text-neutral-900 shadow-2xs font-bold border border-neutral-200/70'
-                    : 'text-neutral-600 hover:text-neutral-900'
+                    ? 'bg-white text-teal-900 shadow-sm font-bold border border-teal-100'
+                    : 'text-neutral-600 hover:text-teal-900'
                 }`}
               >
                 <span>Date Range (Multi-Day)</span>
@@ -317,7 +317,7 @@ export const RequestModal: React.FC = () => {
 
           {/* Date Pickers */}
           {isSingleDay ? (
-            <div className="p-3.5 bg-neutral-50 rounded-xl border border-neutral-200 space-y-2">
+            <div className="p-3.5 bg-teal-50/40 rounded-xl border border-teal-100 space-y-2">
               <label htmlFor="request-single-date" className="block text-xs font-semibold text-neutral-800">
                 Select Date for 1 Day Leave
               </label>
@@ -398,7 +398,7 @@ export const RequestModal: React.FC = () => {
           )}
 
           {/* Working Days & Tracking Summary Box */}
-          <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-200 space-y-2 text-xs">
+          <div className="p-3.5 rounded-xl bg-teal-50/40 border border-teal-100 space-y-2 text-xs">
             <div className="flex items-center justify-between">
               <span className="text-neutral-600">Selected Period:</span>
               <span className="font-bold text-neutral-900">
@@ -465,16 +465,16 @@ export const RequestModal: React.FC = () => {
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               placeholder="e.g. Family vacation, personal appointment, attending conference..."
-              className="w-full text-xs border border-neutral-300 rounded-lg p-2.5 bg-neutral-50 focus:bg-white focus:ring-1 focus:ring-neutral-400 text-neutral-900"
+              className="w-full text-xs border border-neutral-200 rounded-lg p-2.5 bg-neutral-50 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:border-teal-600 text-neutral-900"
             />
           </div>
 
           {/* Footer actions */}
-          <div className="pt-3 border-t border-neutral-200 flex flex-col-reverse xs:flex-row items-stretch xs:items-center justify-end gap-2">
+          <div className="pt-3 border-t border-teal-50 flex flex-col-reverse xs:flex-row items-stretch xs:items-center justify-end gap-2">
             <button
               type="button"
               onClick={() => setIsRequestModalOpen(false)}
-              className="px-4 py-2.5 text-xs font-semibold text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100 rounded-xl transition-colors text-center min-h-[40px] flex items-center justify-center"
+              className="px-4 py-2.5 text-xs font-semibold text-neutral-700 hover:text-teal-800 hover:bg-teal-50 rounded-xl transition-colors text-center min-h-[40px] flex items-center justify-center"
             >
               Cancel
             </button>
@@ -482,9 +482,9 @@ export const RequestModal: React.FC = () => {
               id="submit-leave-request-btn"
               type="submit"
               disabled={calculatedDays <= 0}
-              className={`px-4 py-2.5 text-xs font-bold text-white rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5 min-h-[40px] ${
+              className={`px-4 py-2.5 text-xs font-bold text-white rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 min-h-[40px] ${
                 calculatedDays > 0
-                  ? 'bg-neutral-900 hover:bg-neutral-800 cursor-pointer active:scale-98'
+                  ? 'bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 cursor-pointer active:scale-98 shadow-md shadow-teal-900/10'
                   : 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
               }`}
             >

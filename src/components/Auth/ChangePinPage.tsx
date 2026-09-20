@@ -43,16 +43,15 @@ export const ChangePinPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-100/70 text-neutral-900 flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:px-8 relative overflow-hidden font-sans antialiased">
-      {/* Ambient background decoration */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-neutral-200/50 rounded-full blur-3xl opacity-50 pointer-events-none" />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-neutral-200/50 rounded-full blur-3xl opacity-40 pointer-events-none" />
+    <div className="min-h-screen bg-gradient-to-br from-teal-50/80 via-cyan-50/40 to-neutral-50 text-neutral-900 flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:px-8 relative overflow-hidden font-sans antialiased">
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-teal-200/40 rounded-full blur-3xl opacity-60 pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl opacity-50 pointer-events-none" />
 
       <div className="w-full max-w-md space-y-6 relative z-10">
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-neutral-900 text-white shadow-xs mb-1">
-            <ShieldCheck className="w-6 h-6 text-emerald-400" />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-700 to-teal-900 text-white shadow-md shadow-teal-900/10 mb-1">
+            <ShieldCheck className="w-6 h-6 text-emerald-300" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
             Set a New PIN
@@ -63,7 +62,7 @@ export const ChangePinPage: React.FC = () => {
         </div>
 
         {/* Change PIN Card */}
-        <div className="bg-white border border-neutral-200 rounded-2xl p-6 sm:p-8 shadow-xs">
+        <div className="bg-white/90 backdrop-blur-sm border border-teal-100/80 rounded-2xl p-6 sm:p-8 shadow-lg shadow-teal-900/5">
           {error && (
             <div className="mb-5 p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-2.5 text-rose-800 text-xs animate-in fade-in">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 mt-0.5" />
@@ -95,12 +94,12 @@ export const ChangePinPage: React.FC = () => {
                     if (error) setError(null);
                   }}
                   placeholder="••••••"
-                  className="w-full pl-10 pr-11 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono tracking-widest focus:bg-white focus:outline-hidden focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors"
+                  className="w-full pl-10 pr-11 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono tracking-widest focus:bg-white focus:outline-hidden focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPin(!showPin)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-400 hover:text-neutral-700 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-400 hover:text-teal-700 transition-colors"
                   tabIndex={-1}
                 >
                   {showPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -113,7 +112,7 @@ export const ChangePinPage: React.FC = () => {
                     <div
                       key={idx}
                       className={`h-1.5 flex-1 rounded-full transition-all duration-150 ${
-                        filled ? 'bg-neutral-900 shadow-2xs' : 'bg-neutral-200'
+                        filled ? 'bg-gradient-to-r from-teal-600 to-teal-700 shadow-2xs' : 'bg-neutral-200'
                       }`}
                     />
                   );
@@ -143,7 +142,7 @@ export const ChangePinPage: React.FC = () => {
                     if (error) setError(null);
                   }}
                   placeholder="••••••"
-                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono tracking-widest focus:bg-white focus:outline-hidden focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono tracking-widest focus:bg-white focus:outline-hidden focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 transition-all"
                 />
               </div>
               <div className="flex items-center justify-center gap-2 mt-2">
@@ -153,7 +152,7 @@ export const ChangePinPage: React.FC = () => {
                     <div
                       key={idx}
                       className={`h-1.5 flex-1 rounded-full transition-all duration-150 ${
-                        filled ? 'bg-neutral-900 shadow-2xs' : 'bg-neutral-200'
+                        filled ? 'bg-gradient-to-r from-teal-600 to-teal-700 shadow-2xs' : 'bg-neutral-200'
                       }`}
                     />
                   );
@@ -165,7 +164,7 @@ export const ChangePinPage: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading || newPin.length !== 6 || confirmPin.length !== 6}
-              className="w-full mt-2 py-3 px-4 bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-200 disabled:text-neutral-400 font-semibold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-xs disabled:cursor-not-allowed cursor-pointer"
+              className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-teal-700 to-teal-800 text-white hover:from-teal-800 hover:to-teal-900 disabled:bg-neutral-200 disabled:text-neutral-400 font-semibold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-teal-900/10 disabled:cursor-not-allowed disabled:shadow-none cursor-pointer"
             >
               {isLoading ? (
                 <>

@@ -27,7 +27,7 @@ export const MobileBottomNav: React.FC = () => {
       {/* Fixed Bottom App Navigation Bar for Mobile */}
       <nav
         aria-label="Mobile Navigation"
-        className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-lg border-t border-neutral-200/90 px-3 pt-1.5 pb-[max(env(safe-area-inset-bottom),0.5rem)] shadow-[0_-4px_24px_rgba(0,0,0,0.06)] md:hidden transition-transform duration-200"
+        className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-lg border-t border-teal-100/80 px-3 pt-1.5 pb-[max(env(safe-area-inset-bottom),0.5rem)] shadow-[0_-4px_24px_rgba(13,148,136,0.08)] md:hidden transition-transform duration-200"
       >
         <div className="flex items-center justify-around max-w-md mx-auto relative">
           {/* Calendar Tab */}
@@ -42,7 +42,7 @@ export const MobileBottomNav: React.FC = () => {
           >
             <div
               className={`w-10 h-7 rounded-full flex items-center justify-center transition-colors ${
-                currentView === 'calendar' ? 'bg-neutral-900 text-white shadow-2xs' : ''
+                currentView === 'calendar' ? 'bg-teal-800 text-white shadow-sm' : ''
               }`}
             >
               <CalendarIcon className="w-4 h-4" />
@@ -62,7 +62,7 @@ export const MobileBottomNav: React.FC = () => {
           >
             <div
               className={`w-10 h-7 rounded-full flex items-center justify-center transition-colors ${
-                currentView === 'timeline' ? 'bg-neutral-900 text-white shadow-2xs' : ''
+                currentView === 'timeline' ? 'bg-teal-800 text-white shadow-sm' : ''
               }`}
             >
               <Layers className="w-4 h-4" />
@@ -75,11 +75,11 @@ export const MobileBottomNav: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsRequestModalOpen(true)}
-              className="w-13 h-13 rounded-full bg-neutral-900 hover:bg-neutral-800 active:scale-95 text-white flex items-center justify-center shadow-lg border-2 border-white ring-4 ring-neutral-900/10 transition-all cursor-pointer group"
+              className="w-13 h-13 rounded-full bg-gradient-to-br from-teal-600 to-teal-800 hover:from-teal-700 hover:to-teal-900 active:scale-95 text-white flex items-center justify-center shadow-lg shadow-teal-900/20 border-2 border-white ring-4 ring-teal-900/10 transition-all cursor-pointer group"
               title="Add Leave Request"
               aria-label="Add Leave Request"
             >
-              <Plus className="w-6 h-6 text-emerald-400 group-hover:rotate-90 transition-transform duration-200" />
+              <Plus className="w-6 h-6 text-emerald-300 group-hover:rotate-90 transition-transform duration-200" />
             </button>
             <span className="text-[9.5px] mt-1 text-neutral-600 font-semibold tracking-tight">
               Add Leave
@@ -99,7 +99,7 @@ export const MobileBottomNav: React.FC = () => {
             >
               <div
                 className={`w-10 h-7 rounded-full flex items-center justify-center transition-colors ${
-                  currentView === 'admin-dashboard' ? 'bg-neutral-900 text-white shadow-2xs' : ''
+                  currentView === 'admin-dashboard' ? 'bg-teal-800 text-white shadow-sm' : ''
                 }`}
               >
                 <ShieldCheck className="w-4 h-4" />
@@ -131,7 +131,7 @@ export const MobileBottomNav: React.FC = () => {
           >
             <div className="w-10 h-7 rounded-full flex items-center justify-center">
               <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ring-1 ring-neutral-300 ${activeMember.avatarColor}`}
+                className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ring-1 ring-teal-200 ${activeMember.avatarColor}`}
               >
                 {activeMember.avatarInitials}
               </div>

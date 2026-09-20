@@ -36,11 +36,11 @@ export const StatusLegendBar: React.FC = () => {
   ).filter(Boolean);
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-2xl p-3 sm:p-4 mb-4 shadow-2xs">
+    <div className="bg-white/90 backdrop-blur-sm border border-teal-100/80 rounded-2xl p-3 sm:p-4 mb-4 shadow-sm shadow-teal-900/5">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
         {/* Indicators Legend - scrollable on mobile */}
         <div className="flex items-center gap-1.5 sm:gap-2 text-xs overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
-          <span className="text-[10px] sm:text-[11px] font-bold text-neutral-400 uppercase tracking-wider shrink-0 mr-0.5">
+          <span className="text-[10px] sm:text-[11px] font-bold text-teal-600 uppercase tracking-wider shrink-0 mr-0.5">
             Legend:
           </span>
 

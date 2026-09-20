@@ -62,14 +62,14 @@ export const WeekView: React.FC = () => {
                 }
                 className={`flex flex-col items-center py-1.5 px-0.5 rounded-xl text-center transition-all ${
                   isSelected
-                    ? 'bg-neutral-900 text-white shadow-xs'
+                    ? 'bg-teal-800 text-white shadow-sm'
                     : day.isToday
-                    ? 'bg-neutral-200/80 text-neutral-900 font-bold ring-1 ring-neutral-400/40'
+                    ? 'bg-teal-200/80 text-teal-900 font-bold ring-1 ring-teal-400/40'
                     : 'text-neutral-700 hover:bg-neutral-100'
                 }`}
               >
                 <span className={`text-[10px] uppercase font-semibold leading-none ${
-                  isSelected ? 'text-neutral-300' : day.isToday ? 'text-neutral-900 font-bold' : 'text-neutral-400'
+                  isSelected ? 'text-teal-200' : day.isToday ? 'text-teal-900 font-bold' : 'text-neutral-400'
                 }`}>
                   {day.dayName}
                 </span>
@@ -120,7 +120,7 @@ export const WeekView: React.FC = () => {
                       <span
                         className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
                           day.isToday
-                            ? 'bg-neutral-900 text-white shadow-xs'
+                            ? 'bg-teal-800 text-white shadow-sm'
                             : 'bg-neutral-100 text-neutral-800'
                         }`}
                       >
@@ -132,7 +132,7 @@ export const WeekView: React.FC = () => {
                             {day.dayName}, {day.monthName} {day.dayNumber}
                           </span>
                           {day.isToday && (
-                            <span className="text-[9.5px] font-bold uppercase tracking-wider bg-neutral-900 text-white px-1.5 py-0.2 rounded-full">
+                            <span className="text-[9.5px] font-bold uppercase tracking-wider bg-teal-800 text-white px-1.5 py-0.2 rounded-full">
                               Today
                             </span>
                           )}
@@ -146,7 +146,7 @@ export const WeekView: React.FC = () => {
                     <div className="flex items-center gap-1.5">
                       <button
                         onClick={() => openAddLeaveModal(day.dateString)}
-                        className="p-1.5 text-neutral-600 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-xs font-semibold flex items-center gap-1 min-h-[32px]"
+                        className="p-1.5 text-neutral-600 hover:text-teal-800 bg-teal-50/60 hover:bg-teal-100 rounded-lg text-xs font-semibold flex items-center gap-1 min-h-[32px]"
                         title="Add leave for this day"
                       >
                         <Plus className="w-3.5 h-3.5" />
@@ -165,10 +165,10 @@ export const WeekView: React.FC = () => {
                   {/* Holiday banner */}
                   {holiday && (
                     <div
-                      className="mt-2 text-[11px] bg-violet-50 text-violet-800 border border-violet-200 rounded-lg px-2.5 py-1 font-semibold flex items-center gap-1.5"
+                      className="mt-2 text-[11px] bg-cyan-50 text-cyan-800 border border-cyan-200 rounded-lg px-2.5 py-1 font-semibold flex items-center gap-1.5"
                       title={holiday.name}
                     >
-                      <Sparkles className="w-3.5 h-3.5 text-violet-600 shrink-0" />
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-600 shrink-0" />
                       <span>{holiday.name}</span>
                     </div>
                   )}
@@ -205,7 +205,7 @@ export const WeekView: React.FC = () => {
                             <div className="flex items-center gap-2 min-w-0">
                               <div
                                 className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
-                                  member?.avatarColor || 'bg-neutral-800 text-white'
+                                  member?.avatarColor || 'bg-teal-800 text-white'
                                 }`}
                               >
                                 {member?.avatarInitials || req.memberName.charAt(0)}
@@ -276,13 +276,13 @@ export const WeekView: React.FC = () => {
                     <div className="flex items-center gap-1.5">
                       <span
                         className={`text-xs font-bold uppercase tracking-wider ${
-                          day.isToday ? 'text-neutral-900' : day.isWeekend ? 'text-neutral-400' : 'text-neutral-600'
+                          day.isToday ? 'text-teal-900' : day.isWeekend ? 'text-neutral-400' : 'text-neutral-600'
                         }`}
                       >
                         {day.dayName}
                       </span>
                       {day.isToday && (
-                        <span className="text-[9px] font-extrabold uppercase tracking-wide bg-neutral-900 text-white px-1.5 py-0.2 rounded-full">
+                        <span className="text-[9px] font-extrabold uppercase tracking-wide bg-teal-800 text-white px-1.5 py-0.2 rounded-full">
                           Today
                         </span>
                       )}
@@ -293,7 +293,7 @@ export const WeekView: React.FC = () => {
                         openAddLeaveModal(day.dateString);
                       }}
                       title="Add leave for this day"
-                      className="opacity-0 group-hover:opacity-100 text-neutral-400 hover:text-neutral-900 p-0.5 rounded transition-all"
+                      className="opacity-0 group-hover:opacity-100 text-neutral-400 hover:text-teal-800 p-0.5 rounded transition-all"
                     >
                       <Plus className="w-3.5 h-3.5" />
                     </button>
@@ -303,7 +303,7 @@ export const WeekView: React.FC = () => {
                     <span
                       className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                         day.isToday
-                          ? 'bg-neutral-900 text-white shadow-xs'
+                          ? 'bg-teal-800 text-white shadow-sm'
                           : 'text-neutral-800 group-hover:bg-neutral-200/80'
                       }`}
                     >
@@ -320,7 +320,7 @@ export const WeekView: React.FC = () => {
                   {/* Holiday banner */}
                   {holiday && (
                     <div
-                      className="mt-1.5 text-[10px] bg-purple-50 text-purple-700 border border-purple-200/80 rounded px-1.5 py-0.5 font-semibold truncate"
+                      className="mt-1.5 text-[10px] bg-cyan-50 text-cyan-700 border border-cyan-200/80 rounded px-1.5 py-0.5 font-semibold truncate"
                       title={holiday.name}
                     >
                       {holiday.name}

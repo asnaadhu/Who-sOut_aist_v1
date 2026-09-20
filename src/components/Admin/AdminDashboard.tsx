@@ -243,14 +243,14 @@ export const AdminDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Admin Portal Header */}
-      <div className="bg-white rounded-2xl border border-neutral-200 p-4 sm:p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-teal-100/80 p-4 sm:p-6 shadow-sm shadow-teal-900/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-neutral-900 text-white shrink-0">
-              <Shield className="w-4 h-4 text-amber-400" />
+            <span className="p-1.5 rounded-lg bg-gradient-to-br from-teal-700 to-teal-900 text-white shrink-0 shadow-sm">
+              <Shield className="w-4 h-4 text-amber-300" />
             </span>
             <h2 className="text-lg sm:text-xl font-bold text-neutral-900">Admin Portal</h2>
-            <span className="text-[11px] font-bold bg-neutral-900 text-white px-2 py-0.5 rounded-full">
+            <span className="text-[11px] font-bold bg-gradient-to-r from-teal-700 to-teal-900 text-white px-2 py-0.5 rounded-full">
               Full Access
             </span>
           </div>
@@ -265,7 +265,7 @@ export const AdminDashboard: React.FC = () => {
             <button
               id="admin-create-user-btn"
               onClick={() => setIsAddMemberOpen(true)}
-              className="flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-neutral-900 hover:bg-neutral-800 rounded-xl transition-colors shadow-xs min-h-[38px]"
+              className="flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 rounded-xl transition-all shadow-sm min-h-[38px]"
             >
               <UserPlus className="w-4 h-4" />
               <span>Create User</span>
@@ -274,7 +274,7 @@ export const AdminDashboard: React.FC = () => {
             <button
               id="admin-export-report-btn"
               onClick={handleExportCSV}
-              className="flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-neutral-900 hover:bg-neutral-800 rounded-xl transition-colors shadow-xs min-h-[38px]"
+              className="flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 rounded-xl transition-all shadow-sm min-h-[38px]"
             >
               <Download className="w-4 h-4" />
               <span>Export CSV Report</span>
@@ -284,14 +284,14 @@ export const AdminDashboard: React.FC = () => {
       </div>
 
       {/* 2 Main Options in Admin Portal */}
-      <div className="bg-neutral-100 p-1.5 rounded-2xl border border-neutral-200 flex items-center gap-1">
+      <div className="bg-teal-50/60 p-1.5 rounded-2xl border border-teal-100/80 flex items-center gap-1">
         <button
           id="admin-tab-user-management"
           onClick={() => setActiveTab('user-management')}
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'user-management'
-              ? 'bg-white text-neutral-900 shadow-sm border border-neutral-200/80'
-              : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200/50'
+              ? 'bg-white text-teal-900 shadow-sm border border-teal-100'
+              : 'text-neutral-600 hover:text-teal-900 hover:bg-teal-100/50'
           }`}
         >
           <Users className="w-4 h-4" />
@@ -299,8 +299,8 @@ export const AdminDashboard: React.FC = () => {
           <span
             className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
               activeTab === 'user-management'
-                ? 'bg-neutral-900 text-white'
-                : 'bg-neutral-200 text-neutral-700'
+                ? 'bg-teal-800 text-white'
+                : 'bg-teal-100 text-teal-700'
             }`}
           >
             {members.length} Users
@@ -312,8 +312,8 @@ export const AdminDashboard: React.FC = () => {
           onClick={() => setActiveTab('leave-taken-report')}
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'leave-taken-report'
-              ? 'bg-white text-neutral-900 shadow-sm border border-neutral-200/80'
-              : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200/50'
+              ? 'bg-white text-teal-900 shadow-sm border border-teal-100'
+              : 'text-neutral-600 hover:text-teal-900 hover:bg-teal-100/50'
           }`}
         >
           <FileSpreadsheet className="w-4 h-4" />
@@ -321,8 +321,8 @@ export const AdminDashboard: React.FC = () => {
           <span
             className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
               activeTab === 'leave-taken-report'
-                ? 'bg-neutral-900 text-white'
-                : 'bg-neutral-200 text-neutral-700'
+                ? 'bg-teal-800 text-white'
+                : 'bg-teal-100 text-teal-700'
             }`}
           >
             {requests.filter((r) => r.status !== 'cancelled').length} Records
@@ -348,7 +348,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="bg-white rounded-xl border border-neutral-200 p-4 shadow-2xs">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-neutral-500">Admins</span>
-                <span className="text-[10px] font-bold bg-neutral-900 text-white px-2 py-0.2 rounded-full">
+                <span className="text-[10px] font-bold bg-gradient-to-r from-teal-700 to-teal-900 text-white px-2 py-0.2 rounded-full">
                   Full Control
                 </span>
               </div>
@@ -361,12 +361,12 @@ export const AdminDashboard: React.FC = () => {
             <div className="bg-white rounded-xl border border-neutral-200 p-4 shadow-2xs">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-neutral-500">Requestors</span>
-                <span className="text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.2 rounded-full">
+                <span className="text-[10px] font-bold bg-teal-50 text-teal-700 border border-teal-200 px-2 py-0.2 rounded-full">
                   Standard Role
                 </span>
               </div>
               <div className="flex items-baseline gap-2 mt-1">
-                <span className="text-2xl font-bold text-indigo-600">{requestorCount}</span>
+                <span className="text-2xl font-bold text-teal-600">{requestorCount}</span>
                 <span className="text-xs text-neutral-500">can add/delete only their own leave</span>
               </div>
             </div>
@@ -483,8 +483,8 @@ export const AdminDashboard: React.FC = () => {
                                 onChange={(e) => updateMemberRole(member.id, e.target.value as UserRole)}
                                 className={`text-xs font-bold px-2.5 py-1 rounded-lg border transition-colors cursor-pointer ${
                                   isAdmin
-                                    ? 'bg-neutral-900 text-white border-neutral-900 shadow-2xs'
-                                    : 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100'
+                                    ? 'bg-gradient-to-r from-teal-700 to-teal-900 text-white border-teal-800 shadow-sm'
+                                    : 'bg-teal-50 text-teal-700 border-teal-200 hover:bg-teal-100'
                                 }`}
                                 title="Change role between Admin and Requestor"
                               >
@@ -557,7 +557,7 @@ export const AdminDashboard: React.FC = () => {
                             <div className="flex items-center justify-end gap-1.5">
                               <button
                                 onClick={() => setEditingMember(member)}
-                                className="p-1.5 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 rounded-lg transition-colors"
+                                className="p-1.5 text-neutral-600 hover:text-teal-800 hover:bg-teal-50 rounded-lg transition-colors"
                                 title="Edit user profile & credentials"
                               >
                                 <Edit3 className="w-4 h-4" />
@@ -649,7 +649,7 @@ export const AdminDashboard: React.FC = () => {
 
             {/* PH */}
             <div className="bg-white rounded-xl border border-neutral-200 p-3 shadow-2xs">
-              <span className="text-[11px] font-semibold text-purple-700">Holiday (PH)</span>
+              <span className="text-[11px] font-semibold text-cyan-700">Holiday (PH)</span>
               <p className="text-xl font-bold text-neutral-900 mt-1">
                 {reportMetrics.typeDays.PH}d
               </p>
@@ -791,8 +791,8 @@ export const AdminDashboard: React.FC = () => {
                                   <span
                                     className={`text-[9px] font-bold px-1.5 py-0.2 rounded ${
                                       memberRole === 'Admin'
-                                        ? 'bg-neutral-900 text-white'
-                                        : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
+                                        ? 'bg-gradient-to-r from-teal-700 to-teal-900 text-white'
+                                        : 'bg-teal-50 text-teal-700 border border-teal-200'
                                     }`}
                                   >
                                     {memberRole}

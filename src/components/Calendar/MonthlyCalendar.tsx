@@ -70,9 +70,9 @@ export const MonthlyCalendar: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Calendar Card */}
-      <div className="bg-white rounded-2xl border border-neutral-200 shadow-xs overflow-hidden">
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-teal-100/80 shadow-sm shadow-teal-900/5 overflow-hidden">
         {/* Calendar Navigation Header */}
-        <div className="p-3 sm:p-5 border-b border-neutral-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="p-3 sm:p-5 border-b border-teal-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           {/* Left: Current Date Range and Today Button */}
           <div className="flex items-center justify-between sm:justify-start gap-2.5 min-w-0">
             <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 tracking-tight truncate">
@@ -90,14 +90,14 @@ export const MonthlyCalendar: React.FC = () => {
           {/* Right: View Switcher (Week, Month) & Navigation Arrows */}
           <div className="flex items-center justify-between sm:justify-end gap-2.5">
             {/* View Switcher: Week Month */}
-            <div className="flex items-center gap-1 bg-neutral-100 p-1 rounded-xl border border-neutral-200">
+            <div className="flex items-center gap-1 bg-teal-50/60 p-1 rounded-xl border border-teal-100/80">
               <button
                 id="calendar-view-week-btn"
                 onClick={() => setCalendarMode('week')}
                 className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   calendarMode === 'week'
-                    ? 'bg-white text-neutral-900 shadow-xs border border-neutral-200/80 font-bold'
-                    : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200/50'
+                    ? 'bg-white text-teal-900 shadow-sm border border-teal-100 font-bold'
+                    : 'text-neutral-600 hover:text-teal-900 hover:bg-teal-100/50'
                 }`}
               >
                 Week
@@ -107,8 +107,8 @@ export const MonthlyCalendar: React.FC = () => {
                 onClick={() => setCalendarMode('month')}
                 className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   calendarMode === 'month'
-                    ? 'bg-white text-neutral-900 shadow-xs border border-neutral-200/80 font-bold'
-                    : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200/50'
+                    ? 'bg-white text-teal-900 shadow-sm border border-teal-100 font-bold'
+                    : 'text-neutral-600 hover:text-teal-900 hover:bg-teal-100/50'
                 }`}
               >
                 Month
@@ -150,11 +150,11 @@ export const MonthlyCalendar: React.FC = () => {
         {calendarMode === 'month' && (
           <>
             {/* Days of week header */}
-            <div className="grid grid-cols-7 border-b border-neutral-200 bg-neutral-50/80 text-center text-[10px] sm:text-xs font-bold text-neutral-500 uppercase tracking-wider py-2 sm:py-2.5">
+            <div className="grid grid-cols-7 border-b border-teal-50 bg-teal-50/40 text-center text-[10px] sm:text-xs font-bold text-teal-700 uppercase tracking-wider py-2 sm:py-2.5">
               {WEEKDAYS.map((day, idx) => (
                 <div
                   key={day}
-                  className={`${idx === 0 || idx === 6 ? 'text-neutral-400' : 'text-neutral-700'}`}
+                  className={`${idx === 0 || idx === 6 ? 'text-teal-400' : 'text-teal-700'}`}
                 >
                   <span className="hidden sm:inline">{day}</span>
                   <span className="sm:hidden">{day.charAt(0)}</span>
@@ -191,7 +191,7 @@ export const MonthlyCalendar: React.FC = () => {
                 onClick={() => setSelectedDate(cell.dateString)}
                 className={`min-h-[64px] sm:min-h-[125px] p-1 sm:p-2 flex flex-col justify-between transition-colors cursor-pointer group active:bg-neutral-100 ${
                   cell.isCurrentMonth ? 'bg-white hover:bg-neutral-50/80' : 'bg-neutral-50/50 hover:bg-neutral-100/60'
-                } ${cell.isToday ? 'ring-2 ring-neutral-900 ring-inset z-10' : ''}`}
+                } ${cell.isToday ? 'ring-2 ring-teal-700 ring-inset z-10' : ''}`}
               >
                 {/* Cell Header: Date Number & Holiday/Alert indicators */}
                 <div>
@@ -199,7 +199,7 @@ export const MonthlyCalendar: React.FC = () => {
                     <span
                       className={`text-[11px] sm:text-xs font-bold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full transition-colors ${
                         cell.isToday
-                          ? 'bg-neutral-900 text-white'
+                          ? 'bg-teal-800 text-white'
                           : cell.isCurrentMonth
                           ? 'text-neutral-800 group-hover:text-neutral-900'
                           : 'text-neutral-400'
@@ -223,10 +223,10 @@ export const MonthlyCalendar: React.FC = () => {
                   {/* Public Holiday Pill */}
                   {holiday && (
                     <div
-                      className="mb-0.5 sm:mb-1 px-1 sm:px-1.5 py-0.2 sm:py-0.5 rounded bg-violet-100/90 text-violet-800 text-[8.5px] sm:text-[10px] font-medium border border-violet-200 truncate flex items-center gap-0.5 sm:gap-1"
+                      className="mb-0.5 sm:mb-1 px-1 sm:px-1.5 py-0.2 sm:py-0.5 rounded bg-cyan-50 text-cyan-800 text-[8.5px] sm:text-[10px] font-medium border border-cyan-200 truncate flex items-center gap-0.5 sm:gap-1"
                       title={holiday.name}
                     >
-                      <Sparkles className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-violet-600 shrink-0" />
+                      <Sparkles className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-cyan-600 shrink-0" />
                       <span className="truncate">{holiday.name}</span>
                     </div>
                   )}

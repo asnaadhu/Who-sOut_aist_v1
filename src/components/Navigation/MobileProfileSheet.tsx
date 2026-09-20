@@ -24,7 +24,7 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
   const isAdmin = activeMember.role === 'admin';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-neutral-900/60 backdrop-blur-xs animate-in fade-in duration-200 md:hidden">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-teal-900/40 backdrop-blur-xs animate-in fade-in duration-200 md:hidden">
       {/* Backdrop tap to close */}
       <div className="fixed inset-0" onClick={onClose} />
 
@@ -65,7 +65,7 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
                   {activeMember.name}
                 </h4>
                 {isAdmin && (
-                  <span className="text-[10px] font-bold bg-neutral-900 text-white px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="text-[10px] font-bold bg-gradient-to-r from-teal-700 to-teal-900 text-white px-2 py-0.5 rounded-full flex items-center gap-1">
                     <ShieldCheck className="w-3 h-3 text-emerald-400" />
                     Admin
                   </span>
@@ -89,7 +89,7 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
                 onClose();
                 setIsRequestModalOpen(true);
               }}
-              className="w-full py-3 px-4 bg-neutral-900 hover:bg-neutral-800 text-white rounded-xl text-sm font-semibold flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
+              className="w-full py-3 px-4 bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 text-white rounded-xl text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Request Leave</span>
@@ -101,7 +101,7 @@ export const MobileProfileSheet: React.FC<MobileProfileSheetProps> = ({ isOpen, 
                   onClose();
                   setCurrentView('admin-dashboard');
                 }}
-                className="w-full py-2.5 px-4 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 border border-neutral-200 transition-colors cursor-pointer"
+                className="w-full py-2.5 px-4 bg-neutral-100 hover:bg-teal-50 text-neutral-800 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 border border-neutral-200 transition-colors cursor-pointer"
               >
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>Open Admin Portal</span>

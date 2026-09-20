@@ -48,23 +48,24 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <header className="bg-white border-b border-neutral-200 sticky top-0 z-30 shadow-xs">
+    <header className="bg-white/90 backdrop-blur-md border-b border-teal-100/80 sticky top-0 z-30 shadow-sm">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-2 sm:gap-4">
           {/* Logo & Brand */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-neutral-900 text-white flex items-center justify-center shadow-xs shrink-0">
-              <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-700 to-teal-900 text-white flex items-center justify-center shadow-sm shrink-0">
+              <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-300" />
             </div>
             <div className="min-w-0">
               <h1 className="font-semibold text-neutral-900 text-sm sm:text-base leading-tight tracking-tight truncate">
                 Who’sOut
               </h1>
+              <span className="hidden sm:inline text-[10px] text-teal-600 font-medium bg-teal-50 px-2 py-0.5 rounded-full border border-teal-100">Leave Tracker</span>
             </div>
           </div>
 
           {/* Center Navigation Tabs (Desktop) */}
-          <nav className="hidden md:flex items-center gap-1 bg-neutral-100 p-1 rounded-xl border border-neutral-200">
+          <nav className="hidden md:flex items-center gap-1 bg-teal-50/60 p-1 rounded-xl border border-teal-100/80">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentView === item.id;
@@ -75,11 +76,11 @@ export const Header: React.FC = () => {
                   onClick={() => setCurrentView(item.id)}
                   className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all relative ${
                     isActive
-                      ? 'bg-white text-neutral-900 shadow-xs border border-neutral-200/80 font-semibold'
-                      : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200/50'
+                      ? 'bg-white text-teal-900 shadow-sm border border-teal-100 font-semibold'
+                      : 'text-neutral-600 hover:text-teal-900 hover:bg-teal-100/50'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-neutral-900' : 'text-neutral-500'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-teal-700' : 'text-neutral-500'}`} />
                   <span>{item.label}</span>
                 </button>
               );
@@ -91,7 +92,7 @@ export const Header: React.FC = () => {
             <button
               id="header-request-leave-btn"
               onClick={() => setIsRequestModalOpen(true)}
-              className="hidden sm:flex h-9 px-3 items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+              className="hidden sm:flex h-9 px-3.5 items-center gap-1.5 bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 text-white rounded-lg text-xs font-semibold shadow-sm transition-all cursor-pointer hover:shadow-md"
               title="Request Leave"
               aria-label="Request Leave"
             >
@@ -104,7 +105,7 @@ export const Header: React.FC = () => {
               <button
                 id="profile-switcher-btn"
                 onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                className="w-9 h-9 min-w-[36px] min-h-[36px] hidden sm:flex items-center justify-center rounded-lg border border-neutral-200 hover:border-neutral-300 bg-white hover:bg-neutral-50 transition-colors cursor-pointer"
+                className="w-9 h-9 min-w-[36px] min-h-[36px] hidden sm:flex items-center justify-center rounded-lg border border-teal-100 hover:border-teal-300 bg-white hover:bg-teal-50/50 transition-colors cursor-pointer"
                 title={`Profile: ${activeMember.name} (${activeMember.tmId || 'TM-001'})`}
                 aria-label="User Profile"
               >
@@ -139,11 +140,11 @@ export const Header: React.FC = () => {
                           {activeMember.name}
                         </h2>
                         {activeMember.role === 'admin' ? (
-                          <span className="text-[10px] bg-neutral-900 text-white font-bold px-1.5 py-0.2 rounded">
+                          <span className="text-[10px] bg-gradient-to-r from-teal-700 to-teal-900 text-white font-bold px-1.5 py-0.2 rounded">
                             Admin
                           </span>
                         ) : (
-                          <span className="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-1.5 py-0.2 rounded border border-indigo-200">
+                          <span className="text-[10px] bg-teal-50 text-teal-700 font-bold px-1.5 py-0.2 rounded border border-teal-200">
                             Requestor
                           </span>
                         )}
@@ -168,7 +169,7 @@ export const Header: React.FC = () => {
                         setIsProfileMenuOpen(false);
                         setIsRequestModalOpen(true);
                       }}
-                      className="w-full py-2 px-3 bg-neutral-900 hover:bg-neutral-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                      className="w-full py-2 px-3 bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span>Request Time Off</span>
@@ -198,7 +199,7 @@ export const Header: React.FC = () => {
             {isAdmin && (
             <button
               onClick={logout}
-              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 rounded-lg border border-transparent hover:border-neutral-200 transition-colors"
+              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-neutral-500 hover:text-teal-800 hover:bg-teal-50 rounded-lg border border-transparent hover:border-teal-200 transition-colors"
               title="Sign Out of Session"
             >
               <LogOut className="w-3.5 h-3.5 text-neutral-400" />

@@ -58,14 +58,14 @@ export const TimelineView: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-2xl border border-neutral-200 shadow-xs overflow-hidden">
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-teal-100/80 shadow-sm shadow-teal-900/5 overflow-hidden">
         {/* Navigation Bar */}
-        <div className="p-3.5 sm:p-4 border-b border-neutral-200 flex items-center justify-between gap-2">
+        <div className="p-3.5 sm:p-4 border-b border-teal-50 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <h2 className="text-base sm:text-xl font-bold text-neutral-900 tracking-tight truncate">
               {MONTH_NAMES[currentMonth]} {currentYear}
             </h2>
-            <span className="text-[10px] sm:text-xs bg-neutral-100 text-neutral-600 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md font-medium border border-neutral-200 shrink-0">
+            <span className="text-[10px] sm:text-xs bg-teal-50 text-teal-700 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md font-medium border border-teal-100 shrink-0">
               {filteredMembers.length} Members
             </span>
           </div>
@@ -73,14 +73,14 @@ export const TimelineView: React.FC = () => {
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={goToPreviousMonth}
-              className="p-1.5 sm:p-2 text-neutral-600 hover:text-neutral-900 bg-white hover:bg-neutral-100 border border-neutral-200 rounded-lg transition-colors"
+              className="p-1.5 sm:p-2 text-neutral-600 hover:text-teal-800 bg-white hover:bg-teal-50/50 border border-teal-100/80 rounded-lg transition-colors"
               aria-label="Previous Month"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={goToNextMonth}
-              className="p-1.5 sm:p-2 text-neutral-600 hover:text-neutral-900 bg-white hover:bg-neutral-100 border border-neutral-200 rounded-lg transition-colors"
+              className="p-1.5 sm:p-2 text-neutral-600 hover:text-teal-800 bg-white hover:bg-teal-50/50 border border-teal-100/80 rounded-lg transition-colors"
               aria-label="Next Month"
             >
               <ChevronRight className="w-4 h-4" />
@@ -112,11 +112,11 @@ export const TimelineView: React.FC = () => {
                     onClick={() => setSelectedDate(dateStr)}
                     className={`p-1 sm:p-1.5 text-center border-r border-neutral-200 transition-colors ${
                       isToday
-                        ? 'bg-neutral-900 text-white font-bold'
+                        ? 'bg-teal-800 text-white font-bold'
                         : weekend
                         ? 'bg-neutral-100/70 text-neutral-400'
                         : holiday
-                        ? 'bg-violet-50 text-violet-800 font-semibold'
+                        ? 'bg-cyan-50 text-cyan-800 font-semibold'
                         : 'text-neutral-700 hover:bg-neutral-100'
                     }`}
                     title={holiday ? `${holiday.name} (${dateStr})` : dateStr}
@@ -177,7 +177,7 @@ export const TimelineView: React.FC = () => {
                             onClick={() => setSelectedDate(dateStr)}
                             className={`h-12 border-r border-neutral-200 relative p-1 flex items-center justify-center cursor-pointer transition-colors ${
                               isToday
-                                ? 'bg-neutral-900/5'
+                                ? 'bg-teal-800/5'
                                 : weekend
                                 ? 'bg-neutral-50'
                                 : 'hover:bg-neutral-100/50'
@@ -205,7 +205,7 @@ export const TimelineView: React.FC = () => {
 
                             {!req && holiday && (
                               <div
-                                className="w-1.5 h-1.5 rounded-full bg-violet-400"
+                                className="w-1.5 h-1.5 rounded-full bg-cyan-400"
                                 title={`Holiday: ${holiday.name}`}
                               ></div>
                             )}

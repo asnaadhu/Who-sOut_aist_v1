@@ -66,7 +66,7 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-neutral-900/50 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-teal-900/40 backdrop-blur-xs animate-in fade-in duration-150">
       <div className="bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border border-neutral-200 w-full max-w-lg max-h-[92vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-150">
         {/* Drag Indicator */}
         <div className="sm:hidden pt-2.5 pb-0.5 flex justify-center bg-neutral-50/60">
@@ -210,11 +210,11 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
                 onClick={() => setRole('requestor')}
                 className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
                   role === 'requestor'
-                    ? 'border-indigo-600 bg-indigo-50/50 ring-1 ring-indigo-600 text-indigo-950'
+                    ? 'border-teal-600 bg-teal-50/50 ring-1 ring-teal-600 text-teal-950'
                     : 'border-neutral-200 bg-white hover:border-neutral-300 text-neutral-700'
                 }`}
               >
-                <User className={`w-4 h-4 mt-0.5 shrink-0 ${role === 'requestor' ? 'text-indigo-600' : 'text-neutral-400'}`} />
+                <User className={`w-4 h-4 mt-0.5 shrink-0 ${role === 'requestor' ? 'text-teal-600' : 'text-neutral-400'}`} />
                 <div>
                   <p className="text-xs font-bold">Requestor</p>
                   <p className="text-[11px] text-neutral-500 mt-0.5">
@@ -228,7 +228,7 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
                 onClick={() => setRole('admin')}
                 className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
                   role === 'admin'
-                    ? 'border-neutral-900 bg-neutral-900 text-white ring-1 ring-neutral-900'
+                    ? 'border-teal-800 bg-gradient-to-r from-teal-700 to-teal-800 text-white ring-1 ring-teal-800 shadow-sm'
                     : 'border-neutral-200 bg-white hover:border-neutral-300 text-neutral-700'
                 }`}
               >
@@ -247,13 +247,13 @@ export const EditMemberModal: React.FC<EditMemberModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-neutral-600 hover:text-neutral-800 hover:bg-neutral-100 rounded-xl transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-neutral-600 hover:text-teal-800 hover:bg-teal-50 rounded-xl transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-neutral-900 hover:bg-neutral-800 rounded-xl transition-colors shadow-xs"
+              className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 rounded-xl transition-all shadow-sm"
             >
               <UserCheck className="w-3.5 h-3.5" />
               <span>Save Changes</span>

@@ -19,10 +19,10 @@ const AppContent: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-cyan-50/40 to-neutral-50">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-neutral-300 border-t-neutral-900 rounded-full animate-spin" />
-          <p className="text-xs text-neutral-500 font-medium">Loading your calendar…</p>
+          <div className="w-9 h-9 border-2 border-teal-200 border-t-teal-600 rounded-full animate-spin" />
+          <p className="text-xs text-teal-700 font-medium">Loading your calendar…</p>
         </div>
       </div>
     );
@@ -37,7 +37,7 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-100/70 text-neutral-900 flex flex-col font-sans antialiased selection:bg-neutral-900 selection:text-white">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50/80 via-cyan-50/40 to-neutral-50 text-neutral-900 flex flex-col font-sans antialiased selection:bg-teal-900 selection:text-white">
       {/* Top Header / App Bar */}
       <Header />
 
@@ -56,9 +56,9 @@ const AppContent: React.FC = () => {
       <MobileBottomNav />
 
       {/* Desktop Footer (Hidden on mobile for native app feel) */}
-      <footer className="hidden sm:block border-t border-neutral-200/80 bg-white py-4 text-xs text-neutral-500">
+      <footer className="hidden sm:block border-t border-teal-100/80 bg-white/80 backdrop-blur-sm py-4 text-xs text-neutral-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <p>Who’sOut &bull; Centralized Leave Management Hub</p>
+          <p className="font-semibold text-teal-800">Who’sOut &bull; Centralized Leave Management Hub</p>
           <p className="text-neutral-400 text-[11px]">
             Real-time status indicators, individual request history &amp; admin oversight
           </p>

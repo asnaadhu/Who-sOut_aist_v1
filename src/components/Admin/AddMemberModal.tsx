@@ -60,7 +60,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-neutral-900/50 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-teal-900/40 backdrop-blur-xs animate-in fade-in duration-150">
       <div className="bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border border-neutral-200 w-full max-w-md max-h-[92vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom-6 sm:zoom-in-95 duration-150">
         {/* Mobile Drag Indicator */}
         <div className="sm:hidden pt-2.5 pb-0.5 flex justify-center bg-neutral-50/60">
@@ -69,7 +69,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
 
         <div className="p-4 sm:p-5 border-b border-neutral-200 flex items-center justify-between bg-neutral-50/60">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-neutral-900 text-white flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-700 to-teal-900 text-white flex items-center justify-center shrink-0 shadow-sm">
               <UserPlus className="w-4 h-4" />
             </div>
             <div className="min-w-0">
@@ -203,11 +203,11 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
                 onClick={() => setRole('requestor')}
                 className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all ${
                   role === 'requestor'
-                    ? 'border-indigo-600 bg-indigo-50/50 ring-1 ring-indigo-600 text-indigo-950 font-bold'
+                    ? 'border-teal-600 bg-teal-50/50 ring-1 ring-teal-600 text-teal-950 font-bold'
                     : 'border-neutral-200 bg-white hover:border-neutral-300 text-neutral-700'
                 }`}
               >
-                <User className={`w-4 h-4 shrink-0 ${role === 'requestor' ? 'text-indigo-600' : 'text-neutral-400'}`} />
+                <User className={`w-4 h-4 shrink-0 ${role === 'requestor' ? 'text-teal-600' : 'text-neutral-400'}`} />
                 <div>
                   <p className="text-xs">Requestor</p>
                   <p className="text-[10px] text-neutral-500 font-normal">Calendar &amp; timeline</p>
@@ -219,7 +219,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
                 onClick={() => setRole('admin')}
                 className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all ${
                   role === 'admin'
-                    ? 'border-neutral-900 bg-neutral-900 text-white ring-1 ring-neutral-900 font-bold'
+                    ? 'border-teal-800 bg-gradient-to-r from-teal-700 to-teal-800 text-white ring-1 ring-teal-800 font-bold shadow-sm'
                     : 'border-neutral-200 bg-white hover:border-neutral-300 text-neutral-700'
                 }`}
               >
@@ -238,13 +238,13 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose 
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 text-xs font-semibold text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 rounded-xl transition-colors min-h-[40px] flex items-center justify-center"
+              className="px-4 py-2.5 text-xs font-semibold text-neutral-600 hover:text-teal-800 hover:bg-teal-50 rounded-xl transition-colors min-h-[40px] flex items-center justify-center"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2.5 text-xs font-bold text-white bg-neutral-900 hover:bg-neutral-800 rounded-xl shadow-xs transition-colors min-h-[40px] flex items-center justify-center active:scale-98"
+              className="px-4 py-2.5 text-xs font-bold text-white bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900 rounded-xl shadow-sm transition-all min-h-[40px] flex items-center justify-center active:scale-98"
             >
               Create User
             </button>

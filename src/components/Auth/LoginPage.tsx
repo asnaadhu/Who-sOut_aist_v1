@@ -36,10 +36,9 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-100/70 text-neutral-900 flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:px-8 relative overflow-hidden font-sans antialiased">
-      {/* Ambient background decoration matching the calm neutral aesthetic */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-neutral-200/50 rounded-full blur-3xl opacity-50 pointer-events-none" />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-neutral-200/50 rounded-full blur-3xl opacity-40 pointer-events-none" />
+    <div className="min-h-screen bg-gradient-to-br from-teal-50/80 via-cyan-50/40 to-neutral-50 text-neutral-900 flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:px-8 relative overflow-hidden font-sans antialiased">
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-teal-200/40 rounded-full blur-3xl opacity-60 pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl opacity-50 pointer-events-none" />
 
       <div className="w-full max-w-md space-y-6 relative z-10 pt-4 sm:pt-6">
         {/* Resort Logo */}
@@ -59,7 +58,7 @@ export const LoginPage: React.FC = () => {
         </div>
 
         {/* Login Card */}
-        <div className="bg-white border border-neutral-200 rounded-2xl p-6 sm:p-8 shadow-xs">
+        <div className="bg-white/90 backdrop-blur-sm border border-teal-100/80 rounded-2xl p-6 sm:p-8 shadow-lg shadow-teal-900/5">
           {error && (
             <div className="mb-5 p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-2.5 text-rose-800 text-xs animate-in fade-in">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 mt-0.5" />
@@ -88,7 +87,7 @@ export const LoginPage: React.FC = () => {
                     if (error) setError(null);
                   }}
                   placeholder="30034"
-                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono focus:bg-white focus:outline-hidden focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono focus:bg-white focus:outline-hidden focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 transition-all"
                 />
               </div>
             </div>
@@ -117,7 +116,7 @@ export const LoginPage: React.FC = () => {
                     if (error) setError(null);
                   }}
                   placeholder="••••••"
-                  className="w-full pl-10 pr-11 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono tracking-widest focus:bg-white focus:outline-hidden focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors"
+                  className="w-full pl-10 pr-11 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono tracking-widest focus:bg-white focus:outline-hidden focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 transition-all"
                 />
                 <button
                   type="button"
@@ -137,7 +136,7 @@ export const LoginPage: React.FC = () => {
                     <div
                       key={idx}
                       className={`h-1.5 flex-1 rounded-full transition-all duration-150 ${
-                        filled ? 'bg-neutral-900 shadow-2xs' : 'bg-neutral-200'
+                        filled ? 'bg-gradient-to-r from-teal-600 to-teal-700 shadow-2xs' : 'bg-neutral-200'
                       }`}
                     />
                   );
@@ -149,7 +148,7 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading || !tmId.trim() || pin.length !== 6}
-              className="w-full mt-2 py-3 px-4 bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-200 disabled:text-neutral-400 font-semibold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-xs disabled:cursor-not-allowed cursor-pointer"
+              className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-teal-700 to-teal-800 text-white hover:from-teal-800 hover:to-teal-900 disabled:bg-neutral-200 disabled:text-neutral-400 font-semibold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-teal-900/10 disabled:cursor-not-allowed disabled:shadow-none cursor-pointer"
             >
               {isLoading ? (
                 <>
@@ -167,9 +166,9 @@ export const LoginPage: React.FC = () => {
         </div>
 
         {/* Account support contact */}
-        <div className="bg-white border border-neutral-200 rounded-2xl shadow-xs overflow-hidden">
-          <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-neutral-100 bg-neutral-50/80">
-            <LifeBuoy className="w-4 h-4 text-neutral-500 shrink-0" />
+        <div className="bg-white/90 backdrop-blur-sm border border-teal-100/80 rounded-2xl shadow-sm overflow-hidden">
+          <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-teal-50 bg-teal-50/50">
+            <LifeBuoy className="w-4 h-4 text-teal-600 shrink-0" />
             <p className="text-xs font-semibold text-neutral-700">
               Need account access or password reset?
             </p>
@@ -183,9 +182,9 @@ export const LoginPage: React.FC = () => {
                 href="https://wa.me/9607292184"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 hover:border-neutral-300 hover:bg-white transition-all group"
+                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-teal-50/50 border border-teal-100 hover:border-teal-300 hover:bg-white transition-all group"
               >
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-900 text-white shrink-0">
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-teal-600 to-teal-800 text-white shrink-0">
                   <MessageCircle className="w-3.5 h-3.5" />
                 </span>
                 <span className="flex flex-col min-w-0">
@@ -195,9 +194,9 @@ export const LoginPage: React.FC = () => {
               </a>
               <a
                 href="mailto:aasnad@avanihotels.com"
-                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 hover:border-neutral-300 hover:bg-white transition-all group"
+                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-teal-50/50 border border-teal-100 hover:border-teal-300 hover:bg-white transition-all group"
               >
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-900 text-white shrink-0">
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-teal-600 to-teal-800 text-white shrink-0">
                   <Mail className="w-3.5 h-3.5" />
                 </span>
                 <span className="flex flex-col min-w-0">

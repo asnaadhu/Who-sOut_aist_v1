@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @layer utilities {
@@ -19,8 +20,29 @@
 html, body {
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: none;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 button, a, select, input {
   touch-action: manipulation;
+}
+
+body {
+  background-color: #f0fdfa;
+}
+
+/* Smooth scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 118, 110, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 118, 110, 0.35);
 }

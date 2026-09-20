@@ -20,12 +20,12 @@ export const MobileLeaveTakenSheet: React.FC<MobileLeaveTakenSheetProps> = ({ is
     { type: 'RR', label: 'Rest & Relax', bg: 'bg-sky-50', text: 'text-sky-800', border: 'border-sky-200' },
     { type: 'SL', label: 'Sick Leave', bg: 'bg-rose-50', text: 'text-rose-800', border: 'border-rose-200' },
     { type: 'DO', label: 'Day Off', bg: 'bg-neutral-100', text: 'text-neutral-800', border: 'border-neutral-200' },
-    { type: 'PH', label: 'Public Hol.', bg: 'bg-purple-50', text: 'text-purple-800', border: 'border-purple-200' },
+    { type: 'PH', label: 'Public Hol.', bg: 'bg-cyan-50', text: 'text-cyan-800', border: 'border-cyan-200' },
     { type: 'FRL', label: 'Family/Rel.', bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-200' },
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-neutral-900/60 backdrop-blur-xs animate-in fade-in duration-200 md:hidden">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-teal-900/40 backdrop-blur-xs animate-in fade-in duration-200 md:hidden">
       {/* Backdrop tap to close */}
       <div className="fixed inset-0" onClick={onClose} />
 
@@ -54,7 +54,7 @@ export const MobileLeaveTakenSheet: React.FC<MobileLeaveTakenSheetProps> = ({ is
         {/* Sheet Content */}
         <div className="p-5 overflow-y-auto space-y-5">
           {/* Total Summary */}
-          <div className="flex items-center justify-between p-4 bg-neutral-900 rounded-2xl text-white">
+          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-teal-800 to-teal-900 rounded-2xl text-white shadow-md shadow-teal-900/10">
             <div>
               <span className="text-xs font-medium text-neutral-300 uppercase tracking-wider">Total Days Used</span>
               <div className="text-3xl font-bold mt-0.5">{used.total ?? 0}</div>

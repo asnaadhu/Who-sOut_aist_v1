@@ -10,6 +10,7 @@ import {
   MessageCircle,
   Mail,
   LifeBuoy,
+  ChevronDown,
 } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
@@ -20,6 +21,7 @@ export const LoginPage: React.FC = () => {
   const [showPin, setShowPin] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showSupport, setShowSupport] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -167,45 +169,52 @@ export const LoginPage: React.FC = () => {
 
         {/* Account support contact */}
         <div className="bg-white/90 backdrop-blur-sm border border-teal-100/80 rounded-2xl shadow-sm overflow-hidden">
-          <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-teal-50 bg-teal-50/50">
+          <button
+            type="button"
+            onClick={() => setShowSupport(!showSupport)}
+            className="w-full flex items-center gap-2.5 px-5 py-3.5 bg-teal-50/50 hover:bg-teal-50/80 transition-colors"
+          >
             <LifeBuoy className="w-4 h-4 text-teal-600 shrink-0" />
-            <p className="text-xs font-semibold text-neutral-700">
+            <p className="text-xs font-semibold text-neutral-700 text-left flex-1">
               Need account access or password reset?
             </p>
-          </div>
-          <div className="px-5 py-4 space-y-3">
-            <p className="text-sm font-semibold text-neutral-900 text-center">
-              Ahmed Asnad
-            </p>
-            <div className="grid grid-cols-1 gap-2">
-              <a
-                href="https://wa.me/9607292184"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-teal-50/50 border border-teal-100 hover:border-teal-300 hover:bg-white transition-all group"
-              >
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-teal-600 to-teal-800 text-white shrink-0">
-                  <MessageCircle className="w-3.5 h-3.5" />
-                </span>
-                <span className="flex flex-col min-w-0">
-                  <span className="text-[10px] uppercase tracking-wide text-neutral-400 font-semibold">WhatsApp</span>
-                  <span className="text-xs text-neutral-800 font-medium group-hover:text-neutral-900 transition-colors">+960 729 2184</span>
-                </span>
-              </a>
-              <a
-                href="mailto:aasnad@avanihotels.com"
-                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-teal-50/50 border border-teal-100 hover:border-teal-300 hover:bg-white transition-all group"
-              >
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-teal-600 to-teal-800 text-white shrink-0">
-                  <Mail className="w-3.5 h-3.5" />
-                </span>
-                <span className="flex flex-col min-w-0">
-                  <span className="text-[10px] uppercase tracking-wide text-neutral-400 font-semibold">Email</span>
-                  <span className="text-xs text-neutral-800 font-medium group-hover:text-neutral-900 transition-colors truncate">aasnad@avanihotels.com</span>
-                </span>
-              </a>
+            <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform duration-200 ${showSupport ? 'rotate-180' : ''}`} />
+          </button>
+          {showSupport && (
+            <div className="px-5 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+              <p className="text-sm font-semibold text-neutral-900 text-center">
+                Ahmed Asnad
+              </p>
+              <div className="grid grid-cols-1 gap-2">
+                <a
+                  href="https://wa.me/9607292184"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-teal-50/50 border border-teal-100 hover:border-teal-300 hover:bg-white transition-all group"
+                >
+                  <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-teal-600 to-teal-800 text-white shrink-0">
+                    <MessageCircle className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="flex flex-col min-w-0">
+                    <span className="text-[10px] uppercase tracking-wide text-neutral-400 font-semibold">WhatsApp</span>
+                    <span className="text-xs text-neutral-800 font-medium group-hover:text-neutral-900 transition-colors">+960 729 2184</span>
+                  </span>
+                </a>
+                <a
+                  href="mailto:aasnad@avanihotels.com"
+                  className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-teal-50/50 border border-teal-100 hover:border-teal-300 hover:bg-white transition-all group"
+                >
+                  <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-teal-600 to-teal-800 text-white shrink-0">
+                    <Mail className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="flex flex-col min-w-0">
+                    <span className="text-[10px] uppercase tracking-wide text-neutral-400 font-semibold">Email</span>
+                    <span className="text-xs text-neutral-800 font-medium group-hover:text-neutral-900 transition-colors truncate">aasnad@avanihotels.com</span>
+                  </span>
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

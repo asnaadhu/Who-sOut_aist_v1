@@ -222,13 +222,13 @@ export const LoginPage: React.FC = () => {
           <h2 className="text-sm font-bold tracking-tight text-neutral-800">
             About Who’s Out
           </h2>
-          <div className="space-y-2 text-xs leading-relaxed text-neutral-500 max-w-sm mx-auto">
+          <div className="space-y-2 text-xs leading-relaxed text-neutral-500 max-w-sm mx-auto" style={{ fontFamily: 'Consolas, "Courier New", monospace' }}>
             <p>
               Who’s Out was born to solve a classic workplace mystery:
-              are they ghosting us, or have they been sipping drinks on a beach since Tuesday?
+              Are they ghosting us, or have they been sipping drinks on a beach since Tuesday?
             </p>
             <p>
-              Three unanswered pings in, I realized I still had zero clue who was actually working, who took the week off, and who had simply vanished to Dhakendhoo for a BBQ.
+              Three unanswered pings in, I realized I still had zero clue who was actually working, who took the week off, and who had simply vanished to Dhakendhoo for a team outing.
             </p>
           </div>
         </div>

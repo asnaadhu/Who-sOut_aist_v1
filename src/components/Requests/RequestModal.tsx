@@ -44,8 +44,9 @@ export const RequestModal: React.FC = () => {
   const [leaveType, setLeaveType] = useState<LeaveType>('AL');
   const [isOutOfIsland, setIsOutOfIsland] = useState<boolean>(false);
   const [isSingleDay, setIsSingleDay] = useState<boolean>(true);
-  const [startDate, setStartDate] = useState<string>('2026-09-19');
-  const [endDate, setEndDate] = useState<string>('2026-09-19');
+  const todayISO = formatISODate(new Date());
+  const [startDate, setStartDate] = useState<string>(todayISO);
+  const [endDate, setEndDate] = useState<string>(todayISO);
   const [reason, setReason] = useState<string>('');
   const durationType: DayDuration = 'full';
 
@@ -53,7 +54,7 @@ export const RequestModal: React.FC = () => {
   useEffect(() => {
     if (isRequestModalOpen) {
       setSelectedMemberId(activeMember.id);
-      const defaultDate = requestInitialDate || '2026-09-19';
+      const defaultDate = requestInitialDate || formatISODate(new Date());
       setStartDate(defaultDate);
       setEndDate(defaultDate);
       setIsSingleDay(true);

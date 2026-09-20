@@ -216,6 +216,22 @@ export const LoginPage: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* About Who's Out */}
+        <div className="text-center space-y-3 px-2 pt-2">
+          <h2 className="text-sm font-bold tracking-tight text-neutral-800">
+            About Who’s Out
+          </h2>
+          <div className="space-y-2 text-xs leading-relaxed text-neutral-500 max-w-sm mx-auto">
+            <p>
+              Who’s Out was born to solve a classic workplace mystery:
+              are they ghosting us, or have they been sipping drinks on a beach since Tuesday?
+            </p>
+            <p>
+              Three unanswered pings in, I realized I still had zero clue who was actually working, who took the week off, and who had simply vanished to Dhakendhoo for a BBQ.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

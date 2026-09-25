@@ -45,7 +45,7 @@ export interface DbPublicHoliday {
 
 const normalizeLeaveType = (type: string): LeaveType => {
   const upper = type.toUpperCase();
-  if (['DO', 'PH', 'AL', 'RR', 'SL', 'FRL'].includes(upper)) return upper as LeaveType;
+  if (['DO', 'PH', 'AL', 'RR', 'SL', 'FRL', 'BT'].includes(upper)) return upper as LeaveType;
   return 'AL';
 };
 
@@ -90,6 +90,7 @@ export const dbMemberToApp = (m: DbTeamMember): TeamMember => {
       RR: Number(rawAllow.RR ?? 14),
       PH: Number(rawAllow.PH ?? 10),
       FRL: Number(rawAllow.FRL ?? 5),
+      BT: Number(rawAllow.BT ?? 10),
     } as LeaveAllowance,
   };
 };

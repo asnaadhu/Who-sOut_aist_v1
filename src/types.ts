@@ -2,7 +2,7 @@ export type UserRole = 'admin' | 'requestor' | 'member';
 
 export type Department = string;
 
-export type LeaveType = 'DO' | 'PH' | 'AL' | 'RR' | 'SL' | 'FRL';
+export type LeaveType = 'DO' | 'PH' | 'AL' | 'RR' | 'SL' | 'FRL' | 'BT';
 
 export type LeaveStatus = 'pending' | 'approved' | 'rejected' | 'cancelled';
 
@@ -15,6 +15,7 @@ export interface LeaveAllowance {
   RR: number;
   PH: number;
   FRL: number;
+  BT: number;
 }
 
 export interface TeamMember {

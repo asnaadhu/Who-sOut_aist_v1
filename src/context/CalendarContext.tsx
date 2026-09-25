@@ -374,7 +374,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       (r) => r.memberId === memberId && r.status === 'approved'
     );
     const summary: Record<LeaveType, number> & { total: number } = {
-      DO: 0, PH: 0, AL: 0, RR: 0, SL: 0, FRL: 0, total: 0,
+      DO: 0, PH: 0, AL: 0, RR: 0, SL: 0, FRL: 0, BT: 0, total: 0,
     };
     approvedRequests.forEach((req) => {
       if (summary[req.leaveType] !== undefined) {
@@ -557,7 +557,7 @@ export const CalendarProvider: React.FC<{ children: ReactNode }> = ({ children }
       department: data.department,
       jobTitle: data.jobTitle.trim() || 'Team Member',
       joinedDate: data.joinedDate || new Date().toISOString().split('T')[0],
-      allowances: data.allowances || { AL: 25, RR: 14, SL: 14, DO: 52, PH: 10, FRL: 5 },
+      allowances: data.allowances || { AL: 25, RR: 14, SL: 14, DO: 52, PH: 10, FRL: 5, BT: 10 },
       pinChanged: false,
     };
 

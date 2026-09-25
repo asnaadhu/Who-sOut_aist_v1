@@ -30,7 +30,7 @@ import {
 import { AddMemberModal } from './AddMemberModal';
 import { EditMemberModal } from './EditMemberModal';
 
-const ALL_LEAVE_TYPES: LeaveType[] = ['AL', 'RR', 'SL', 'DO', 'PH', 'FRL'];
+const ALL_LEAVE_TYPES: LeaveType[] = ['AL', 'RR', 'SL', 'DO', 'PH', 'FRL', 'BT'];
 
 export const AdminDashboard: React.FC = () => {
   const {
@@ -148,6 +148,7 @@ export const AdminDashboard: React.FC = () => {
       DO: 0,
       PH: 0,
       FRL: 0,
+      BT: 0,
     };
     let outOfIslandCount = 0;
 
@@ -543,6 +544,11 @@ export const AdminDashboard: React.FC = () => {
                                     DO: {used.DO}d
                                   </span>
                                 )}
+                                {used.BT > 0 && (
+                                  <span className="text-[10px] bg-sky-50 text-sky-800 font-medium px-1.5 py-0.2 rounded border border-sky-200">
+                                    BT: {used.BT}d
+                                  </span>
+                                )}
                                 {used.total === 0 && (
                                   <span className="text-[10px] text-neutral-400 italic">
                                     0 days taken
@@ -598,7 +604,7 @@ export const AdminDashboard: React.FC = () => {
       {activeTab === 'leave-taken-report' && (
         <div className="space-y-4">
           {/* Summary Metric Counters */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-9 gap-2">
             {/* Total Days */}
             <div className="col-span-2 bg-white rounded-xl border border-neutral-200 p-3 shadow-2xs">
               <span className="text-[11px] font-semibold text-neutral-500 uppercase tracking-wider">
@@ -652,6 +658,14 @@ export const AdminDashboard: React.FC = () => {
               <span className="text-[11px] font-semibold text-cyan-700">Holiday (PH)</span>
               <p className="text-xl font-bold text-neutral-900 mt-1">
                 {reportMetrics.typeDays.PH}d
+              </p>
+            </div>
+
+            {/* BT */}
+            <div className="bg-white rounded-xl border border-neutral-200 p-3 shadow-2xs">
+              <span className="text-[11px] font-semibold text-sky-700">Biz Trip (BT)</span>
+              <p className="text-xl font-bold text-neutral-900 mt-1">
+                {reportMetrics.typeDays.BT}d
               </p>
             </div>
 

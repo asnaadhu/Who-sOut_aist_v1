@@ -20,6 +20,7 @@ const LEAVE_TYPES: { code: LeaveType; label: string }[] = [
   { code: 'RR', label: 'RR (Rest & Relax)' },
   { code: 'SL', label: 'SL (Sick Leave)' },
   { code: 'FRL', label: 'FRL (Family Responsibility)' },
+  { code: 'BT', label: 'BT (Business Trip)' },
 ];
 
 export const StatusLegendBar: React.FC = () => {
@@ -48,7 +49,7 @@ export const StatusLegendBar: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-red-500"></span>
             <span className="font-semibold">Team Leave</span>
             <span className="text-[10px] font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded border border-red-200">
-              <span className="hidden sm:inline">Name + Code (DO &middot; PH &middot; AL &middot; RR &middot; SL &middot; FRL)</span>
+              <span className="hidden sm:inline">Name + Code (DO &middot; PH &middot; AL &middot; RR &middot; SL &middot; FRL &middot; BT)</span>
               <span className="sm:hidden">Leave Code</span>
             </span>
           </div>

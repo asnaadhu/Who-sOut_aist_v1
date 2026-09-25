@@ -61,6 +61,16 @@ const BASE_LEAVE_TYPE_CONFIG: Record<string, LeaveTypeConfig> = {
     iconName: 'Users',
     description: 'Emergency family care & compassionate leave',
   },
+  BT: {
+    label: 'BT (Business Trip)',
+    bgClass: 'bg-sky-100 text-sky-800 border-sky-300',
+    textClass: 'text-sky-800',
+    borderClass: 'border-sky-300',
+    badgeBg: 'bg-sky-600 text-white',
+    dotColor: 'bg-sky-600',
+    iconName: 'Briefcase',
+    description: 'Official business travel for work purposes',
+  },
 };
 
 // Aliases for any legacy or alternative stored names
@@ -106,7 +116,7 @@ export const INITIAL_MEMBERS: TeamMember[] = [
     department: 'Operations',
     jobTitle: 'Lead Administrator',
     joinedDate: '2023-01-01',
-    allowances: { AL: 25, SL: 14, DO: 52, RR: 10, PH: 10, FRL: 5 },
+    allowances: { AL: 25, SL: 14, DO: 52, RR: 10, PH: 10, FRL: 5, BT: 10 },
   },
 ];
 

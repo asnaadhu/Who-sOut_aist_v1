@@ -21,7 +21,7 @@ import {
   Plane,
 } from 'lucide-react';
 
-const TRACKING_LEAVE_TYPES: LeaveType[] = ['AL', 'RR', 'SL', 'DO', 'PH', 'FRL'];
+const TRACKING_LEAVE_TYPES: LeaveType[] = ['AL', 'RR', 'SL', 'DO', 'PH', 'FRL', 'BT'];
 
 export const MemberProfileView: React.FC = () => {
   const {

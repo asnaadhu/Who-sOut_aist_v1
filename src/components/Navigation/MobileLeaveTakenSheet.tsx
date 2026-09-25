@@ -22,6 +22,7 @@ export const MobileLeaveTakenSheet: React.FC<MobileLeaveTakenSheetProps> = ({ is
     { type: 'DO', label: 'Day Off', bg: 'bg-[#E4E4E4]', text: 'text-[#000000]', border: 'border-[#000000]' },
     { type: 'PH', label: 'Public Hol.', bg: 'bg-[#FCA311]', text: 'text-[#14213D]', border: 'border-[#14213D]' },
     { type: 'FRL', label: 'Family/Rel.', bg: 'bg-[#E4E4E4]', text: 'text-[#14213D]', border: 'border-[#14213D]' },
+    { type: 'BT', label: 'Business Trip', bg: 'bg-[#14213D]', text: 'text-white', border: 'border-[#14213D]' },
   ];
 
   return (

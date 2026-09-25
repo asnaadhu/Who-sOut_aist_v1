@@ -105,7 +105,7 @@ export const RequestModal: React.FC = () => {
     });
   };
 
-  const leaveTypesList: LeaveType[] = ['DO', 'PH', 'AL', 'RR', 'SL', 'FRL'];
+  const leaveTypesList: LeaveType[] = ['DO', 'PH', 'AL', 'RR', 'SL', 'FRL', 'BT'];
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-teal-900/40 backdrop-blur-xs animate-in fade-in duration-150">

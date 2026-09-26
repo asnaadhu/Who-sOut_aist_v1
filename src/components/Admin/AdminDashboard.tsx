@@ -181,7 +181,7 @@ export const AdminDashboard: React.FC = () => {
       'Out of Island',
       'Start Date',
       'End Date',
-      'Working Days',
+      'Days Count',
       'Duration Type',
       'Reason / Note',
       'Date Submitted',

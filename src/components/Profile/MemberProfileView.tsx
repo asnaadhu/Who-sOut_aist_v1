@@ -231,7 +231,7 @@ export const MemberProfileView: React.FC = () => {
                         {formatDateRange(req.startDate, req.endDate, req.durationType)}
                       </span>
                       <span className="text-xs font-semibold text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded-md">
-                        {req.daysCount} {req.daysCount === 1 ? 'Working Day' : 'Working Days'}
+                        {req.daysCount} {req.daysCount === 1 ? 'Day' : 'Days'}
                       </span>
                     </div>
 

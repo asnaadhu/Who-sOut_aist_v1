@@ -85,22 +85,9 @@ export function calculateWorkingDays(startDateStr: string, endDateStr: string, d
     return durationType === 'morning' || durationType === 'afternoon' ? 0.5 : 1;
   }
 
-  // Multi-day range: count business working days (Mon-Fri)
-  let count = 0;
-  const curr = new Date(start);
-  while (curr <= end) {
-    if (!isWeekend(curr)) {
-      count += 1;
-    }
-    curr.setDate(curr.getDate() + 1);
-  }
-
-  // If all selected days fall on weekend (e.g. weekend shift or weekend leave tracking),
-  // count the actual calendar days so tracking is never 0 days.
-  if (count === 0) {
-    const totalDays = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-    count = Math.max(1, totalDays);
-  }
+  // Multi-day range: count all calendar days inclusive of start and end
+  const totalDays = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  let count = Math.max(1, totalDays);
 
   if (durationType === 'morning' || durationType === 'afternoon') {
     count = Math.max(0.5, count - 0.5);

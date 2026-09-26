@@ -545,7 +545,7 @@ export const AdminDashboard: React.FC = () => {
                                   </span>
                                 )}
                                 {used.BT > 0 && (
-                                  <span className="text-[10px] bg-sky-50 text-sky-800 font-medium px-1.5 py-0.2 rounded border border-sky-200">
+                                  <span className="text-[10px] bg-red-50 text-red-800 font-medium px-1.5 py-0.2 rounded border border-red-200">
                                     BT: {used.BT}d
                                   </span>
                                 )}
@@ -663,7 +663,7 @@ export const AdminDashboard: React.FC = () => {
 
             {/* BT */}
             <div className="bg-white rounded-xl border border-neutral-200 p-3 shadow-2xs">
-              <span className="text-[11px] font-semibold text-sky-700">Biz Trip (BT)</span>
+              <span className="text-[11px] font-semibold text-red-700">Biz Trip (BT)</span>
               <p className="text-xl font-bold text-neutral-900 mt-1">
                 {reportMetrics.typeDays.BT}d
               </p>

@@ -58,7 +58,7 @@ const AppContent: React.FC = () => {
       {/* Desktop Footer (Hidden on mobile for native app feel) */}
       <footer className="hidden sm:block border-t border-teal-100/80 bg-white/80 backdrop-blur-sm py-4 text-xs text-neutral-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <p className="font-semibold text-teal-800">Who’sOut &bull; Centralized Leave Management Hub</p>
+          <p className="font-semibold text-teal-800">Who’sOut &bull; Avani+ Fares Maldives Resort</p>
         </div>
       </footer>
     </div>

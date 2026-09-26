@@ -62,7 +62,7 @@ export const Header: React.FC = () => {
               <h1 className="font-semibold text-neutral-900 text-sm sm:text-base leading-tight tracking-tight truncate">
                 Who’sOut
               </h1>
-              <span className="hidden sm:inline text-[10px] text-teal-600 font-medium bg-teal-50 px-2 py-0.5 rounded-full border border-teal-100">Leave Tracker</span>
+              <span className="hidden sm:inline text-[10px] text-teal-600 font-medium bg-teal-50 px-2 py-0.5 rounded-full border border-teal-100">Avani+ Fares Maldives Resort</span>
             </div>
           </div>
 

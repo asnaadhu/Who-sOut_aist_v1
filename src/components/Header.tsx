@@ -127,7 +127,7 @@ export const Header: React.FC = () => {
 
               {/* Dropdown Menu - Logged In User Profile Only */}
               {isProfileMenuOpen && (
-                <div className="fixed inset-x-3 top-20 sm:static sm:inset-auto sm:top-full sm:absolute sm:right-0 sm:mt-2 w-auto sm:w-80 bg-white rounded-2xl sm:rounded-xl shadow-2xl sm:shadow-lg border border-neutral-200 p-4 z-50 animate-in fade-in zoom-in-95 duration-100 max-h-[85vh] flex flex-col space-y-3.5">
+                <div className="fixed inset-x-3 top-20 sm:absolute sm:right-0 sm:top-full sm:mt-2 w-auto sm:w-80 bg-white rounded-2xl sm:rounded-xl shadow-2xl sm:shadow-lg border border-neutral-200 p-4 z-50 animate-in fade-in zoom-in-95 duration-100 max-h-[85vh] flex flex-col space-y-3.5">
                   {/* Profile Header */}
                   <div className="flex items-start gap-3 pb-3 border-b border-neutral-100">
                     <div

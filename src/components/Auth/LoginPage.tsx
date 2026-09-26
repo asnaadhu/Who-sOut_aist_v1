@@ -88,8 +88,8 @@ export const LoginPage: React.FC = () => {
                     setTmId(e.target.value.toUpperCase());
                     if (error) setError(null);
                   }}
-                  placeholder="30034"
-                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono focus:bg-white focus:outline-hidden focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 transition-all"
+                  placeholder="e.g. 30034"
+                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-300 font-mono focus:bg-white focus:outline-hidden focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 transition-all"
                 />
               </div>
             </div>
@@ -117,8 +117,8 @@ export const LoginPage: React.FC = () => {
                     setPin(clean);
                     if (error) setError(null);
                   }}
-                  placeholder="••••••"
-                  className="w-full pl-10 pr-11 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 font-mono tracking-widest focus:bg-white focus:outline-hidden focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 transition-all"
+                  placeholder="e.g. 123456"
+                  className="w-full pl-10 pr-11 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-300 font-mono tracking-widest focus:bg-white focus:outline-hidden focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 transition-all"
                 />
                 <button
                   type="button"
